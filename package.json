@@ -5,7 +5,8 @@
   "main": "src/covid19/js/index-covid.js",
   "scripts": {
     "dev": "parcel src/covid19/es/index.html",
-    "test": "jest --passWithNoTests --silent"
+    "test": "jest --passWithNoTests --silent",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
