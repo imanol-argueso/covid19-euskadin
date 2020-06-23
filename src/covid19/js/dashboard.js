@@ -9,7 +9,6 @@ function dashboard(jsonData, jsonDataId) {
     if (Math.floor(increment) !== increment) {
         increment = increment.toFixed(2);
     };
-    console.log((today) + ' (' + format(increment) + ')');
     return (today) + ' (' + format(increment) + ')';
 }
 export { format, dashboard };
