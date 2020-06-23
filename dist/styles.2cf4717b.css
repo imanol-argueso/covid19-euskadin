@@ -1,0 +1,187 @@
+nav#sidebarMenu ul.flex-column li.nav-item a {
+color: #343a40;
+text-transform: uppercase;
+font-size: 100%;
+
+}
+nav#sidebarMenu ul.flex-column li.nav-item a:hover {
+    color: #0056b3;
+}
+nav#sidebarMenu ul.flex-column li.nav-item i {
+color: #999;
+margin-right:0.5em;
+}
+div.btn-group a.btn-outline-secondary i {
+    margin-right:0.5em;
+}
+button.navbar-toggler {
+    float: right;
+    width: 12%;
+    text-align: center;
+    /*border: none;*/
+    margin-left: 87%;
+}
+.position-absolute {
+    position: absolute !important;
+}
+table.google-visualization-table-table {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+#table_div, #table_div2, #table_div3, #table_div4, #table_div5, #table_div6, #table_div7 {
+    margin-bottom: 2em;
+}
+#linechart_material2 {
+    width:900px;
+    height: 500px;
+    }
+
+@media only screen and (max-width: 600px) {
+    #linechart_material2 {
+    width:300px !important;
+    height: auto;
+    }
+}
+div.dashboard {
+    width: 100%;
+}
+div.dashboardContainer, div.dashboardLiteralContainer {
+    width: 300px;
+    border: 1px solid #dee2e6;
+    border-radius: 0.4em;
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-bottom: 1em;
+    float:left;
+    height: auto;
+}
+
+@media only screen and (min-width: 1400px) {
+    div.dashboardContainer, div.dashboardLiteralContainer {
+        margin-right: 10%;
+        margin-left: 10%;
+    }
+}
+@media only screen and (min-width: 995px) and (max-width: 1285px) {
+    div.dashboardContainer, div.dashboardLiteralContainer {
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+}
+@media only screen and (min-width: 770px) and (max-width: 934px) {
+    div.dashboardContainer, div.dashboardLiteralContainer {
+        margin-right: 20%;
+        margin-left: 20%;
+    }
+}
+@media only screen and (max-width: 678px) {
+    div.dashboardContainer, div.dashboardLiteralContainer {
+        margin-right: 15%;
+        margin-left: 15%;
+    }
+}
+@media only screen and (max-width: 430px) {
+    div.dashboardContainer, div.dashboardLiteralContainer {
+        margin-right: 2%;
+        margin-left: 2%;
+    }
+}
+
+div.dashboardContainer i, div.dashboardLiteralContainer i {
+    width: 30%;
+    float: left;
+    text-align: center;
+    padding: 0.2em;
+    font-size: 3em;
+    color: #ffffff;
+    background-color: #6c757d;
+    /*background-color: #0056b3;*/
+    border-top-left-radius: 0.1em;
+    height:69px;
+}
+div.dashboardContainer .literal, div.dashboardLiteralContainer .literal {
+    width: 70%;
+    float:left;
+    padding-left: 0.8em;
+    border-bottom: 1px solid #dee2e6;
+    height:70px;
+    background-color: #6c757d;
+    /*background-color: #0056b3;*/
+    color:#ffffff;
+    border-top-right-radius: 0.4em;
+}
+div.dashboardLiteralContainer .literal {
+    border-bottom-right-radius: 0.4em;
+}
+div.dashboardLiteralContainer i {
+    border-bottom-left-radius: 0.1em;
+}
+div.dashboardContainer .literal div, div.dashboardLiteralContainer .literal div {
+    font-size: 130%;
+    font-weight: 600;
+}
+div.dashboard #linechart_material3, div.dashboard #linechart_material, div.dashboard #linechart_material2 {
+    float:left;
+    margin-top:1em;
+}
+div.dashboard div.detalle {
+    float:left;
+    width: 100%;
+    border-top: 1px solid #dee2e6;
+    background-color: #6c757d;
+    /*background-color: #0056b3;*/
+    color:#ffffff;
+    margin-top:1em;
+    border-bottom-right-radius: 0.4em;
+    border-bottom-left-radius: 0.4em;
+    padding-bottom:0.2em;
+
+}
+#actualizadoFallecidos, #actualizadoR0, #actualizadoPositivos {
+    width: 60%;
+    float: left;
+    padding-left: 0.5em;
+    margin-bottom: 0;
+    font-size:90%;
+}
+div.dashboard div.detalle a {
+    float:right;
+    width: 40%;
+    float: left;
+    color:#ffffff;
+    font-size:90%;
+    text-align: right;
+    padding-right:0.5em;
+    font-weight: 600;
+}
+footer {
+    height: 3em;
+    
+}
+div.row{
+min-height:42em;
+}
+main {
+    margin-bottom:2em;
+}
+ul.languages {
+    width:12%;
+    flex-direction: row;
+}
+ul.languages li .nav-link {
+    padding-left: 1em;
+}
+
+ul.languages li .nav-link a:hover{
+    text-decoration: underline !important;
+}
+ul.languages li {
+    width:50%;
+    float:left;
+}
+@media only screen and (max-width: 760px) {
+    ul.languages {
+        width:25%;
+    }
+}
+
+/*# sourceMappingURL=/styles.2cf4717b.css.map */

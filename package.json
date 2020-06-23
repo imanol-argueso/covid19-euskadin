@@ -2,9 +2,9 @@
   "name": "projects",
   "version": "1.0.0",
   "description": "",
-  "main": "src/covid19/index.js",
+  "main": "src/covid19/js/index-covid.js",
   "scripts": {
-    "dev": "parcel src/covid19/index.html",
+    "dev": "parcel src/covid19/es/index.html",
     "test": "jest --passWithNoTests --silent"
   },
   "author": "",
