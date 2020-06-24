@@ -1,6 +1,5 @@
 import { DATAFILES } from './config';
 import { getJSON } from './getData.js';
-
 window.onload = function () {
     getJSON(DATAFILES.EPIDEMICSTATUS, function (err, dataJson) {
         if (err != null) {
