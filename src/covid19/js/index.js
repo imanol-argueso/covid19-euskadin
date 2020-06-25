@@ -2,7 +2,7 @@ import { DATAFILES } from './config';
 import { getJSON } from './getData.js';
 import { format, dashboard } from './dashboard.js';
 
-export default function init() {
+export function init() {
 
     getJSON(DATAFILES.EPIDEMICSTATUS, function (err, dataJson) {
         if (err != null) {

@@ -195,7 +195,7 @@ function dashboard(jsonData, jsonDataId) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = init;
+exports.init = init;
 
 var _config = require("./config");
 
@@ -331,11 +331,9 @@ function init() {
 },{"./config":"js/config.js","./getData.js":"js/getData.js","./dashboard.js":"js/dashboard.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
-var _js = _interopRequireDefault(require("./js"));
+var _js = require("./js");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-(0, _js.default)();
+(0, _js.init)();
 },{"./js":"js/index.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -364,7 +362,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52970" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58318" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
