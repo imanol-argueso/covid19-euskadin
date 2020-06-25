@@ -5,6 +5,7 @@
   "main": "src/covid19/index.html",
   "scripts": {
     "dev": "parcel src/covid19/index.html",
+    "build": "parcel build src/index.html",
     "test": "jest --passWithNoTests --silent",
     "start": "node src/covid19/index.html"
   },
