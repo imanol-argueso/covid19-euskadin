@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "parcel src/covid19/index.html",
     "test": "jest --passWithNoTests --silent",
-    "start": "node src/covid19/index.html"
+    "start": "parcel src/covid19/index.html"
   },
   "author": "",
   "license": "ISC",
