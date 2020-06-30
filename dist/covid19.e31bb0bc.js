@@ -254,7 +254,7 @@ function init() {
           width: 297,
           height: 197
         };
-        var chart = new google.charts.Line(document.getElementById('linechart_material3'));
+        var chart = new google.charts.Line(document.getElementById('linechart_material_mini3'));
         chart.draw(data, google.charts.Line.convertOptions(options));
       }
     }
@@ -288,7 +288,7 @@ function init() {
           width: 297,
           height: 197
         };
-        var chart = new google.charts.Line(document.getElementById('linechart_material'));
+        var chart = new google.charts.Line(document.getElementById('linechart_material_mini1'));
         chart.draw(data, google.charts.Line.convertOptions(options));
       }
     }
@@ -322,7 +322,7 @@ function init() {
           width: 297,
           height: 197
         };
-        var chart = new google.charts.Line(document.getElementById('linechart_material2'));
+        var chart = new google.charts.Line(document.getElementById('linechart_material_mini2'));
         chart.draw(data, google.charts.Line.convertOptions(options));
       }
     }
@@ -362,7 +362,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57149" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59105" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

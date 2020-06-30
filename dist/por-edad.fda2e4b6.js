@@ -170,10 +170,11 @@ var _config = require("./config");
 var _getData = require("./getData.js");
 
 window.onload = function () {
-  (0, _getData.getJSON)(_config.DATAFILES.BYAGE, function (err, dataJson) {
+  (0, _getData.getJSON)(_config.DATAFILES.BYAGE, function (err, dataRawJson) {
     if (err != null) {
       alert('Something went wrong: ' + err);
     } else {
+      var dataJson = JSON.parse(JSON.stringify(dataRawJson));
       google.charts.load('current', {
         'packages': ['corechart']
       });
@@ -297,7 +298,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57149" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53801" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

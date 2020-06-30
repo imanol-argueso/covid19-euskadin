@@ -52,7 +52,7 @@ export function init() {
                     width: 297,
                     height: 197
                 };
-                var chart = new google.charts.Line(document.getElementById('linechart_material3'));
+                var chart = new google.charts.Line(document.getElementById('linechart_material_mini3'));
                 chart.draw(data, google.charts.Line.convertOptions(options));
             }
         }
@@ -79,7 +79,7 @@ export function init() {
                     width: 297,
                     height: 197
                 };
-                var chart = new google.charts.Line(document.getElementById('linechart_material'));
+                var chart = new google.charts.Line(document.getElementById('linechart_material_mini1'));
                 chart.draw(data, google.charts.Line.convertOptions(options));
             }
         }
@@ -105,7 +105,7 @@ export function init() {
                     width: 297,
                     height: 197
                 };
-                var chart = new google.charts.Line(document.getElementById('linechart_material2'));
+                var chart = new google.charts.Line(document.getElementById('linechart_material_mini2'));
                 chart.draw(data, google.charts.Line.convertOptions(options));
             }
         }
