@@ -25,7 +25,7 @@ var getJSON = function (url, callback) {
     xhr.send();
 };
 window.onload = function () {
-    getJSON(DATAFILES.BYMUNICIPALITY, function (err, dataJson) {
+    getJSON(DATAFILES.BYHEALTHZONE, function (err, dataJson) {
         if (err != null) {
             alert('Something went wrong: ' + err);
         } else {
@@ -35,34 +35,34 @@ window.onload = function () {
             function drawSeriesChart() {
                 var data = new google.visualization.DataTable();
                 if (window.location.href.indexOf("/eu/") > -1) {
-                    data.addColumn('string', 'Udalerria');
+                    data.addColumn('string', 'Osasun eremua');
                     data.addColumn('number', 'Positiboen tasa');
                     data.addColumn('number', 'Hilgarritasuna');
-                    data.addColumn('number', 'Biztanleak');
+                    data.addColumn('number', 'Biztanleak (TISak guztira)');
                     var options = {
-                        title: '20.000 biztanle baino gehiago dituzten udalerrien positibo (100.000 biztanleko tasa) eta hilgarritasunaren arteko korrelazioa.',
+                        title: 'Euskadiko osasun eremuen positibo (100.000 biztanleko tasa) eta hilgarritasunaren arteko korrelazioa. Hilgarritsaun handiena (>13%) duten osasun eremuak bakarrik erakusten dira.',
                         hAxis: { title: 'Positiboak (100.000 biztanleko tasa)' },
                         vAxis: { title: 'Hilgarritasuna' },
                         bubble: { textStyle: { fontSize: 11 } }
                     };
                 } else {
-                    data.addColumn('string', 'Municipio');
+                    data.addColumn('string', 'Zona de salud');
                     data.addColumn('number', 'Tasa de positivos');
                     data.addColumn('number', 'Letalidad');
-                    data.addColumn('number', 'Poblacion');
+                    data.addColumn('number', 'Poblacion (Total de TIS)');
                     var options = {
-                        title: 'Correlación entre positivos (tasa por 100.000 hab.) y la letalidad en los municipios de más de 20.000 habitantes de Euskadi.',
+                        title: 'Correlación entre positivos (tasa por 100.000 hab.) y letalidad en las zonas de salud de Euskadi. Se muestran tan solo las zonas de salud con mayor letalidad (> 13%).',
                         hAxis: { title: 'Positivos (tasa por 100.000 hab.)' },
                         vAxis: { title: 'Letalidad' },
                         bubble: { textStyle: { fontSize: 11 } }
                     };
                 }
-                for (let element of dataJson.byDateByMunicipality[0].items) {
-                    if (element.population > 20000) {
-                        data.addRow([element.geoMunicipality.officialName, element.positiveBy100ThousandPeopleRate, element.mortalityRate, element.population]);
+                for (let element of dataJson.dataByDateByHealthZone[0].items) {
+                    if (element.mortalityRate > 13) {
+                        data.addRow([element.healthZone.name, element.positiveBy100ThousandPeopleRate, element.mortalityRate, element.tisCount]);
                     }
                 }
-                var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div2'));
+                var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div3'));
                 chart.draw(data, options);
             }
             google.charts.load('current', { 'packages': ['table'] });
@@ -70,24 +70,24 @@ window.onload = function () {
             function drawTable() {
                 var data = new google.visualization.DataTable();
                 if (window.location.href.indexOf("/eu/") > -1) {
-                    data.addColumn('string', 'Udalerria');
-                    data.addColumn('number', 'Populazioa');
+                    data.addColumn('string', 'Osasun eremua');
+                    data.addColumn('number', 'TISak guztira');
                     data.addColumn('number', 'Positiboak');
                     data.addColumn('number', 'Positiboen tasa 100.000 biz.');
                     data.addColumn('number', 'Hildakoak');
                     data.addColumn('number', 'Hilgarritasuna');
                 } else {
-                    data.addColumn('string', 'Municipio');
-                    data.addColumn('number', 'Poblacion');
+                    data.addColumn('string', 'Zona de salud');
+                    data.addColumn('number', 'Total TIS');
                     data.addColumn('number', 'Positivos');
                     data.addColumn('number', 'Tasa de positivos 100.000 hab.');
                     data.addColumn('number', 'Fallecidos');
                     data.addColumn('number', 'Letalidad');
                 }
-                for (let element of dataJson.byDateByMunicipality[0].items) {
-                    data.addRow([element.geoMunicipality.officialName, element.population, element.totalPositiveCount, element.positiveBy100ThousandPeopleRate, element.totalDeceasedCount, element.mortalityRate]);
+                for (let element of dataJson.dataByDateByHealthZone[0].items) {
+                    data.addRow([element.healthZone.name, element.tisCount, element.totalPositiveCount, element.positiveBy100ThousandPeopleRate, element.totalDeceasedCount, element.mortalityRate]);
                 }
-                var table = new google.visualization.Table(document.getElementById('table_div9'));
+                var table = new google.visualization.Table(document.getElementById('table_div10'));
                 table.draw(data, { showRowNumber: true, sortColumn: 2, sortAscending: false, width: '100%', height: 'auto' });
             }
 

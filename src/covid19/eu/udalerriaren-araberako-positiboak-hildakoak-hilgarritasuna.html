@@ -11,7 +11,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Positiboak eta hildakoak udalerriaren arabera</title>
+    <title>Positiboak eta hilgarritasuna udalerriaren arabera</title>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
     <script
@@ -39,7 +39,7 @@
                 <span class="nav-no-link">eu</span>
             </li>
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="../es/positivos-fallecidos-letalidad-por-municipio.html">es</a>
+                <a class="nav-link" href="../es/positivos-fallecidos-por-municipio.html">es</a>
             </li>
         </ul>
     </nav>
@@ -97,28 +97,36 @@
                                 Udalerriak
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href="./osasun-eremuaren-araberako-positiboak-hildakoak-hilgarritasuna.html">
+                                <i class="fas fa-clinic-medical"></i>
+                                Osasun eremuak
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Udalerrietako positiboak eta hildakoak</h1>
+                    <h1 class="h2">Udalerrietako positiboak eta hilgarritsauna</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <a href="whatsapp://send?text=Positivos y fallecidos por municipio en Euskadi - https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-letalidad-por-municipio.html"
+                            <a href="whatsapp://send?text=Positiboak eta hilgarritasuna udalerriaren arabera - https://covid19-euskadin.herokuapp.com/eu/udalerriaren-araberako-positiboak-hildakoak-hilgarritasuna.html"
                                 data-action="share/whatsapp/share" class="btn btn-sm btn-outline-secondary">
                                 <i class="fab fa-whatsapp"></i>Whatsapp</a>
 
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-letalidad-por-municipio.html"
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://covid19-euskadin.herokuapp.com/eu/udalerriaren-araberako-positiboak-hildakoak-hilgarritasuna.html"
                                 class="btn btn-sm btn-outline-secondary"><i class="fab fa-facebook-f"></i>Facebook</a>
-                            <a href="http://twitter.com/share?text=Positivos y fallecidos por municipio en Euskadi&url=https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-letalidad-por-municipio.html&hashtags=covid19,opendata"
+                            <a href="http://twitter.com/share?text=Positiboak eta hilgarritasuna udalerriaren arabera&url=https://covid19-euskadin.herokuapp.com/eu/udalerriaren-araberako-positiboak-hildakoak-hilgarritasuna.html&hashtags=covid19,opendata"
                                 class="btn btn-sm btn-outline-secondary"><i class="fab fa-twitter"></i>Twitter</a>
                         </div>
                     </div>
                 </div>
-                <div id="map"></div>
+                <div id="series_chart_div2"></div>
                 <h2>Datuak</h2>
+                <div id="table_div9"></div>
             </main>
         </div>
     </div>

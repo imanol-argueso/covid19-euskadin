@@ -11,7 +11,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Positivos y fallecidos por municipio</title>
+    <title>Positivos y letalidad por municipio</title>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
     <script
@@ -96,28 +96,36 @@
                                 Por municipio
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./positivos-fallecidos-por-zona-salud.html">
+                                <i class="fas fa-clinic-medical"></i>
+                                Por zona salud
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Positivos y fallecidos por municipio</h1>
+                    <h1 class="h2">Positivos y letalidad por municipio</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <a href="whatsapp://send?text=Positivos y fallecidos por municipio en Euskadi - https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-letalidad-por-municipio.html"
+                            <a href="whatsapp://send?text=Positivos y letalidad por municipio en Euskadi - https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-por-municipio.html"
                                 data-action="share/whatsapp/share" class="btn btn-sm btn-outline-secondary">
                                 <i class="fab fa-whatsapp"></i>Whatsapp</a>
 
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-letalidad-por-municipio.html"
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-por-municipio.html"
                                 class="btn btn-sm btn-outline-secondary"><i class="fab fa-facebook-f"></i>Facebook</a>
-                            <a href="http://twitter.com/share?text=Positivos y fallecidos por municipio en Euskadi&url=https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-letalidad-por-municipio.html&hashtags=covid19,opendata"
+                            <a href="http://twitter.com/share?text=Positivos y letalidad por municipio en Euskadi&url=https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-por-municipio.html&hashtags=covid19,opendata"
                                 class="btn btn-sm btn-outline-secondary"><i class="fab fa-twitter"></i>Twitter</a>
                         </div>
                     </div>
                 </div>
-                <div id="map"></div>
+                <div id="series_chart_div2"></div>
                 <h2>Datos</h2>
+                <div id="table_div9"></div>
+
             </main>
         </div>
     </div>
