@@ -1,12 +1,12 @@
 {
   "name": "projects",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/covid19/index.html",
+  "description": "Covid-19 in Basque Country",
+  "main": "app.js",
   "scripts": {
     "dev": "parcel src/covid19/index.html",
     "test": "jest --passWithNoTests --silent",
-    "start": "parcel src/covid19/index.html"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -30,6 +30,7 @@
     "last 1 Chrome versions"
   ],
   "dependencies": {
+    "express": "^4.17.1",
     "ol": "^6.3.1"
   }
 }

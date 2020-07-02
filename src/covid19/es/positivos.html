@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -10,7 +10,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Evolución del número de positivos de test PCR en Euskadi</title>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141364393-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-141364393-2');
+    </script>
+
 </head>
 
 <body>
@@ -22,7 +32,7 @@
         </button>
         <ul class="navbar-nav px-3 languages">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">eu</a>
+                <a class="nav-link" href="../eu/positiboak.html">eu</a>
             </li>
             <li class="nav-item text-nowrap">
                 <span class="nav-no-link">es</span>
@@ -37,7 +47,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="../index.html">
                                 <i class="fas fa-home"></i>
-                                Inicio</span>
+                                Inicio
                             </a>
                         </li>
                         <li class="nav-item">
@@ -91,18 +101,19 @@
                     <h1 class="h2">Positivos (PCR)</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <a href="https://api.whatsapp.com/send?text=evolución%20del%20covid-19%20en%20Euskadihttps://opendata.euskadi.eus"
-                                class="btn btn-sm btn-outline-secondary"><i class="fab fa-whatsapp"></i>Whatsapp</a>
+                            <a href="whatsapp://send?text=Evolución de los casos positivos por el coronavirus en Euskadi - https://covid19-euskadin.herokuapp.com/es/positivos.html"
+                                data-action="share/whatsapp/share" class="btn btn-sm btn-outline-secondary">
+                                <i class="fab fa-whatsapp"></i>Whatsapp</a>
 
-                            <a href="#" class="btn btn-sm btn-outline-secondary"><i
-                                    class="fab fa-facebook-f"></i>Facebook</a>
-                            <a href="#" class="btn btn-sm btn-outline-secondary"><i
-                                    class="fab fa-twitter"></i>Twitter</a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://covid19-euskadin.herokuapp.com/eu/hildakoak.html"
+                                class="btn btn-sm btn-outline-secondary"><i class="fab fa-facebook-f"></i>Facebook</a>
+                            <a href="http://twitter.com/share?text=Evolución de los casos positivos por el coronavirus en Euskadi&url=https://covid19-euskadin.herokuapp.com/es/positivos.html/&hashtags=covid19,opendata"
+                                class="btn btn-sm btn-outline-secondary"><i class="fab fa-twitter"></i>Twitter</a>
                         </div>
                     </div>
                 </div>
-                <div id="linechart_material" style="width: 900px; height: 500px"></div>
-                <div id="linechart_material0" style="width: 900px; height: 500px"></div>
+                <div id="linechart_material"></div>
+                <div id="linechart_material0"></div>
                 <h2>Datos</h2>
                 <div class="table-responsive" id="table_div"></div>
             </main>
@@ -118,15 +129,13 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
     <script src="../js/positives.js"></script>
+
 </body>
 
 </html>

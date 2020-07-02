@@ -118,14 +118,9 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"js/config.js":[function(require,module,exports) {
-"use strict";
+const DATA_SOURCE = 'https://opendata.euskadi.eus/contenidos/ds_informes_estudios/covid_19_2020/opendata/generated/'; //export const DATAFILES = {
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.DATAFILES = void 0;
-const DATA_SOURCE = 'https://opendata.euskadi.eus/contenidos/ds_informes_estudios/covid_19_2020/opendata/generated/';
-const DATAFILES = {
+module.exports = {
   EPIDEMICSTATUS: `${DATA_SOURCE}/covid19-epidemic-status.json`,
   PCR: `${DATA_SOURCE}/covid19-pcr.json`,
   DECEASEDPEOPLECOUNT: `${DATA_SOURCE}/covid19-deceasedPeopleCount.json`,
@@ -134,16 +129,9 @@ const DATAFILES = {
   BYMUNICIPALITY: `${DATA_SOURCE}/covid19-bymunicipality.json`,
   BYHOSPITAL: `${DATA_SOURCE}/covid19-byhospital.json`
 };
-exports.DATAFILES = DATAFILES;
 },{}],"js/getData.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getJSON = void 0;
-
-var getJSON = function (url, callback) {
+//export var getJSON = function (url, callback) {
+module.exports = function (url, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open('get', url, true);
   xhr.responseType = 'json';
@@ -160,8 +148,6 @@ var getJSON = function (url, callback) {
 
   xhr.send();
 };
-
-exports.getJSON = getJSON;
 },{}],"js/dashboard.js":[function(require,module,exports) {
 "use strict";
 
@@ -254,7 +240,7 @@ function init() {
           width: 297,
           height: 197
         };
-        var chart = new google.charts.Line(document.getElementById('linechart_material3'));
+        var chart = new google.charts.Line(document.getElementById('linechart_material_mini3'));
         chart.draw(data, google.charts.Line.convertOptions(options));
       }
     }
@@ -288,7 +274,7 @@ function init() {
           width: 297,
           height: 197
         };
-        var chart = new google.charts.Line(document.getElementById('linechart_material'));
+        var chart = new google.charts.Line(document.getElementById('linechart_material_mini1'));
         chart.draw(data, google.charts.Line.convertOptions(options));
       }
     }
@@ -322,7 +308,7 @@ function init() {
           width: 297,
           height: 197
         };
-        var chart = new google.charts.Line(document.getElementById('linechart_material2'));
+        var chart = new google.charts.Line(document.getElementById('linechart_material_mini2'));
         chart.draw(data, google.charts.Line.convertOptions(options));
       }
     }
@@ -362,7 +348,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57149" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64679" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

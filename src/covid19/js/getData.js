@@ -1,4 +1,5 @@
 export var getJSON = function (url, callback) {
+    //module.exports = function (url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open('get', url, true);
     xhr.responseType = 'json';

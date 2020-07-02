@@ -1,6 +1,29 @@
-import { DATAFILES } from './config';
-import { getJSON } from './getData.js';
-
+//import { DATAFILES } from './config';
+//import { getJSON } from './getData.js';
+const DATA_SOURCE = 'https://opendata.euskadi.eus/contenidos/ds_informes_estudios/covid_19_2020/opendata/generated/';
+DATAFILES = {
+    EPIDEMICSTATUS: `${DATA_SOURCE}/covid19-epidemic-status.json`,
+    PCR: `${DATA_SOURCE}/covid19-pcr.json`,
+    DECEASEDPEOPLECOUNT: `${DATA_SOURCE}/covid19-deceasedPeopleCount.json`,
+    BYAGE: `${DATA_SOURCE}/covid19-byage.json`,
+    BYHEALTHZONE: `${DATA_SOURCE}/covid19-byhealthzone.json`,
+    BYMUNICIPALITY: `${DATA_SOURCE}/covid19-bymunicipality.json`,
+    BYHOSPITAL: `${DATA_SOURCE}/covid19-byhospital.json`,
+};
+var getJSON = function (url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function () {
+        var status = xhr.status;
+        if (status == 200) {
+            callback(null, xhr.response);
+        } else {
+            callback(status);
+        }
+    };
+    xhr.send();
+};
 window.onload = function () {
 
     getJSON(DATAFILES.BYAGE, function (err, dataJson) {

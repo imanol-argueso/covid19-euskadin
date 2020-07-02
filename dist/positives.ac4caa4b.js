@@ -117,15 +117,13 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"js/config.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.DATAFILES = void 0;
+})({"js/positives.js":[function(require,module,exports) {
+//import { DATAFILES } from './config';
+//const DATAFILES = require('./config');
+//import { getJSON } from './getData.js';
+//const getJSON = require('./getData');
 const DATA_SOURCE = 'https://opendata.euskadi.eus/contenidos/ds_informes_estudios/covid_19_2020/opendata/generated/';
-const DATAFILES = {
+DATAFILES = {
   EPIDEMICSTATUS: `${DATA_SOURCE}/covid19-epidemic-status.json`,
   PCR: `${DATA_SOURCE}/covid19-pcr.json`,
   DECEASEDPEOPLECOUNT: `${DATA_SOURCE}/covid19-deceasedPeopleCount.json`,
@@ -134,14 +132,6 @@ const DATAFILES = {
   BYMUNICIPALITY: `${DATA_SOURCE}/covid19-bymunicipality.json`,
   BYHOSPITAL: `${DATA_SOURCE}/covid19-byhospital.json`
 };
-exports.DATAFILES = DATAFILES;
-},{}],"js/getData.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getJSON = void 0;
 
 var getJSON = function (url, callback) {
   var xhr = new XMLHttpRequest();
@@ -161,18 +151,10 @@ var getJSON = function (url, callback) {
   xhr.send();
 };
 
-exports.getJSON = getJSON;
-},{}],"js/positives.js":[function(require,module,exports) {
-"use strict";
-
-var _config = require("./config");
-
-var _getData = require("./getData.js");
-
 window.onload = function () {
   //getJSON('https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/alojamiento_de_euskadi/opendata/alojamientos.json', function (err, data) {
   //getJSON('https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2020/es_def/adjuntos/datos_horarios/AGURAIN.json', function (err, data) {
-  (0, _getData.getJSON)(_config.DATAFILES.PCR, function (err, dataJson) {
+  getJSON(DATAFILES.PCR, function (err, dataJson) {
     if (err != null) {
       alert('Something went wrong: ' + err);
     } else {
@@ -262,7 +244,7 @@ window.onload = function () {
     }
   });
 };
-},{"./config":"js/config.js","./getData.js":"js/getData.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -290,7 +272,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57149" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61569" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
