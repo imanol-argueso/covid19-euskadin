@@ -86,6 +86,7 @@ window.onload = function () {
                     legend: { position: 'none' },
                     hAxis: { format: 'M/d/yy' },
                     colors: ['#6c757d'],
+                    curveType: 'function',
                     width: 297,
                     height: 197
                 };
@@ -117,6 +118,7 @@ window.onload = function () {
                     legend: { position: 'none' },
                     hAxis: { format: 'M/d/yy' },
                     colors: ['#6c757d'],
+                    curveType: 'function',
                     width: 297,
                     height: 197
                 };
@@ -147,6 +149,7 @@ window.onload = function () {
                     legend: { position: 'none' },
                     hAxis: { format: 'M/d/yy' },
                     colors: ['#6c757d'],
+                    curveType: 'function',
                     width: 297,
                     height: 197
                 };

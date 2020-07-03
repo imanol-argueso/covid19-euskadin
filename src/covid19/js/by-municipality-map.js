@@ -1,14 +1,4 @@
 //import { DATAFILES } from './config';
-//import { getJSON } from './getData.js';
-import 'ol/ol.css';
-import Map from 'ol/Map';
-import View from 'ol/View';
-import GeoJSON from 'ol/format/GeoJSON';
-import MultiPoint from 'ol/geom/MultiPoint';
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
-import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
-
 const DATA_SOURCE = 'https://opendata.euskadi.eus/contenidos/ds_informes_estudios/covid_19_2020/opendata/generated/';
 DATAFILES = {
     EPIDEMICSTATUS: `${DATA_SOURCE}/covid19-epidemic-status.json`,
@@ -19,6 +9,7 @@ DATAFILES = {
     BYMUNICIPALITY: `${DATA_SOURCE}/covid19-bymunicipality.json`,
     BYHOSPITAL: `${DATA_SOURCE}/covid19-byhospital.json`,
 };
+//import { getJSON } from './getData.js';
 var getJSON = function (url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open('get', url, true);
@@ -33,201 +24,136 @@ var getJSON = function (url, callback) {
     };
     xhr.send();
 };
+
 window.onload = function () {
-    /*
-    getJSON('https://opendata.euskadi.eus/w79-catalogo/es/contenidos/ds_geograficos/md_ideeu_lim_administrativos/opendata/municipios_epsg3857.json', function (err, dataJson) {
+
+    getJSON(DATAFILES.BYMUNICIPALITY, function (err, dataJson) {
         if (err != null) {
             alert('Something went wrong: ' + err);
         } else {
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawSeriesChart);
+
+            function drawSeriesChart() {
+                var data = new google.visualization.DataTable();
+                if (window.location.href.indexOf("/eu/") > -1) {
+                    data.addColumn('string', 'Udalerria');
+                    data.addColumn('number', 'Positiboen tasa');
+                    data.addColumn('number', 'Hilgarritasuna');
+                    data.addColumn('number', 'Biztanleak');
+                    var options = {
+                        title: '20.000 biztanle baino gehiago dituzten udalerrien positibo (100.000 biztanleko tasa) eta hilgarritasunaren arteko korrelazioa.',
+                        hAxis: { title: 'Positiboak (100.000 biztanleko tasa)' },
+                        vAxis: { title: 'Hilgarritasuna' },
+                        bubble: { textStyle: { fontSize: 11 } }
+                    };
+                } else {
+                    data.addColumn('string', 'Municipio');
+                    data.addColumn('number', 'Tasa de positivos');
+                    data.addColumn('number', 'Letalidad');
+                    data.addColumn('number', 'Poblacion');
+                    var options = {
+                        title: 'Correlación entre positivos (tasa por 100.000 hab.) y la letalidad en los municipios de más de 20.000 habitantes de Euskadi.',
+                        hAxis: { title: 'Positivos (tasa por 100.000 hab.)' },
+                        vAxis: { title: 'Letalidad' },
+                        bubble: { textStyle: { fontSize: 11 } }
+                    };
+                }
+                for (let element of dataJson.byDateByMunicipality[0].items) {
+                    if (element.population > 20000) {
+                        data.addRow([element.geoMunicipality.officialName, element.positiveBy100ThousandPeopleRate, element.mortalityRate, element.population]);
+                    }
+                }
+                var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div2'));
+                chart.draw(data, options);
+            }
+
+            let map = L.map('map')
+            let geojson_url = "https://covid19-euskadin.herokuapp.com/maps/municipios_latlon.json";
+            let addGeoLayer = (data) => {
+                let geojsonLayer = L.geoJson(data, {
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(feature.properties['EUSTAT'])
+                        //layer.setIcon(treeMarker);
+                    }
+                }).addTo(map)
+                map.fitBounds(geojsonLayer.getBounds())
+            }
+            fetch(
+                geojson_url
+            ).then(
+                res => res.json()
+            ).then(
+                data => addGeoLayer(data)
+            )
+
+
+            /*
+            //let map = L.map('map').setView([40.7277831, -74.0080852], 13);
+            L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
+                attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &mdash; Data from <a href="https://datosabiertos.jcyl.es/">JCyL OpenData</a>',
+                subdomains: 'abcd',
+                minZoom: 1,
+                maxZoom: 16,
+                ext: 'png'
+            }).addTo(map)
+ 
+            let treeMarker = L.ExtraMarkers.icon({
+                icon: 'fa-leaf',
+                markerColor: 'green',
+                shape: 'square',
+                prefix: 'fa'
+            })
+ 
+            let geojson_url = "https://covid19-euskadin.herokuapp.com/maps/municipios_latlon.json"
+            let addGeoLayer = (data) => {
+                let geojsonLayer = L.geoJson(data, {
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(feature.properties['arbol_nombre'])
+                        //layer.setIcon(treeMarker);
+                    }
+                }).addTo(map)
+                map.fitBounds(geojsonLayer.getBounds())
+            }
+ 
+            fetch(
+                geojson_url
+            ).then(
+                res => res.json()
+            ).then(
+                data => addGeoLayer(data)
+            )
 */
-    /*
-        var map = new ol.Map({
-            layers: [
-                new ol.layer.Tile({
-                    source: new ol.source.OSM()
-                })
-            ],
-            target: 'map',
-            view: new ol.View({
-                center: ol.proj.fromLonLat([42.41, 5.82]),
-                zoom: 4
-            })
-        });
-        map.addControl(new ol.control.ZoomSlider());
-    
-    */
 
-    var image = new CircleStyle({
-        radius: 5,
-        fill: null,
-        stroke: new Stroke({ color: 'red', width: 1 })
+
+            google.charts.load('current', { 'packages': ['table'] });
+            google.charts.setOnLoadCallback(drawTable);
+            function drawTable() {
+                var data = new google.visualization.DataTable();
+                if (window.location.href.indexOf("/eu/") > -1) {
+                    data.addColumn('string', 'Udalerria');
+                    data.addColumn('number', 'Populazioa');
+                    data.addColumn('number', 'Positiboak');
+                    data.addColumn('number', 'Positiboen tasa 100.000 biz.');
+                    data.addColumn('number', 'Hildakoak');
+                    data.addColumn('number', 'Hilgarritasuna');
+                } else {
+                    data.addColumn('string', 'Municipio');
+                    data.addColumn('number', 'Poblacion');
+                    data.addColumn('number', 'Positivos');
+                    data.addColumn('number', 'Tasa de positivos 100.000 hab.');
+                    data.addColumn('number', 'Fallecidos');
+                    data.addColumn('number', 'Letalidad');
+                }
+                for (let element of dataJson.byDateByMunicipality[0].items) {
+
+                    data.addRow([element.geoMunicipality.officialName, element.population, element.totalPositiveCount, element.positiveBy100ThousandPeopleRate, element.totalDeceasedCount, element.mortalityRate]);
+                }
+                var table = new google.visualization.Table(document.getElementById('table_div9'));
+                table.draw(data, { showRowNumber: true, sortColumn: 2, sortAscending: false, width: '100%', height: 'auto' });
+            }
+
+
+        }
     });
-
-    var styles = {
-        'Point': new Style({
-            image: image
-        }),
-        'LineString': new Style({
-            stroke: new Stroke({
-                color: 'green',
-                width: 1
-            })
-        }),
-        'MultiLineString': new Style({
-            stroke: new Stroke({
-                color: 'green',
-                width: 1
-            })
-        }),
-        'MultiPoint': new Style({
-            image: image
-        }),
-        'MultiPolygon': new Style({
-            stroke: new Stroke({
-                color: 'yellow',
-                width: 1
-            }),
-            fill: new Fill({
-                color: 'rgba(255, 255, 0, 0.1)'
-            })
-        }),
-        'Polygon': new Style({
-            stroke: new Stroke({
-                color: 'blue',
-                lineDash: [4],
-                width: 3
-            }),
-            fill: new Fill({
-                color: 'rgba(0, 0, 255, 0.1)'
-            })
-        }),
-        'GeometryCollection': new Style({
-            stroke: new Stroke({
-                color: 'magenta',
-                width: 2
-            }),
-            fill: new Fill({
-                color: 'magenta'
-            }),
-            image: new CircleStyle({
-                radius: 10,
-                fill: null,
-                stroke: new Stroke({
-                    color: 'magenta'
-                })
-            })
-        }),
-        'Circle': new Style({
-            stroke: new Stroke({
-                color: 'red',
-                width: 2
-            }),
-            fill: new Fill({
-                color: 'rgba(255,0,0,0.2)'
-            })
-        })
-    };
-
-    var styleFunction = function (feature) {
-        return styles[feature.getGeometry().getType()];
-    };
-
-    var geojsonObject = {
-        'type': 'FeatureCollection',
-        'crs': {
-            'type': 'name',
-            'properties': {
-                'name': 'EPSG:3857'
-            }
-        },
-        'features': [{
-            'type': 'Feature',
-            'geometry': {
-                'type': 'Point',
-                'coordinates': [0, 0]
-            }
-        }, {
-            'type': 'Feature',
-            'geometry': {
-                'type': 'LineString',
-                'coordinates': [[4e6, -2e6], [8e6, 2e6]]
-            }
-        }, {
-            'type': 'Feature',
-            'geometry': {
-                'type': 'LineString',
-                'coordinates': [[4e6, 2e6], [8e6, -2e6]]
-            }
-        }, {
-            'type': 'Feature',
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[[-5e6, -1e6], [-4e6, 1e6], [-3e6, -1e6]]]
-            }
-        }, {
-            'type': 'Feature',
-            'geometry': {
-                'type': 'MultiLineString',
-                'coordinates': [
-                    [[-1e6, -7.5e5], [-1e6, 7.5e5]],
-                    [[1e6, -7.5e5], [1e6, 7.5e5]],
-                    [[-7.5e5, -1e6], [7.5e5, -1e6]],
-                    [[-7.5e5, 1e6], [7.5e5, 1e6]]
-                ]
-            }
-        }, {
-            'type': 'Feature',
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [
-                    [[[-5e6, 6e6], [-5e6, 8e6], [-3e6, 8e6], [-3e6, 6e6]]],
-                    [[[-2e6, 6e6], [-2e6, 8e6], [0, 8e6], [0, 6e6]]],
-                    [[[1e6, 6e6], [1e6, 8e6], [3e6, 8e6], [3e6, 6e6]]]
-                ]
-            }
-        }, {
-            'type': 'Feature',
-            'geometry': {
-                'type': 'GeometryCollection',
-                'geometries': [{
-                    'type': 'LineString',
-                    'coordinates': [[-5e6, -5e6], [0, -5e6]]
-                }, {
-                    'type': 'Point',
-                    'coordinates': [4e6, -5e6]
-                }, {
-                    'type': 'Polygon',
-                    'coordinates': [[[1e6, -6e6], [2e6, -4e6], [3e6, -6e6]]]
-                }]
-            }
-        }]
-    };
-
-    var vectorSource = new VectorSource({
-        features: (new GeoJSON()).readFeatures(geojsonObject)
-    });
-
-    vectorSource.addFeature(new Feature(new Circle([5e6, 7e6], 1e6)));
-
-    var vectorLayer = new VectorLayer({
-        source: vectorSource,
-        style: styleFunction
-    });
-
-    var map = new Map({
-        layers: [
-            new TileLayer({
-                source: new OSM()
-            }),
-            vectorLayer
-        ],
-        target: 'map',
-        view: new View({
-            center: [0, 0],
-            zoom: 2
-        })
-    });
-
-    //}
-    //});
 }

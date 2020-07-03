@@ -63,7 +63,11 @@ window.onload = function () {
 
                 }
                 for (let element of dataJson.byDate) {
-                    data.addRow([new Date(element.date), element.pcrTestCount, element.serologyTestCount, element.pcrUniquePersonCount]);
+                    if (element.pcrUniquePersonCount == 0) {
+                        data.addRow([new Date(element.date), element.pcrTestCount, element.serologyTestCount, null]);
+                    } else {
+                        data.addRow([new Date(element.date), element.pcrTestCount, element.serologyTestCount, element.pcrUniquePersonCount]);
+                    }
                 }
 
                 var chart = new google.charts.Line(document.getElementById('linechart_material7'));

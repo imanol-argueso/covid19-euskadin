@@ -24,7 +24,9 @@ var getJSON = function (url, callback) {
     };
     xhr.send();
 };
+
 window.onload = function () {
+
     getJSON(DATAFILES.BYMUNICIPALITY, function (err, dataJson) {
         if (err != null) {
             alert('Something went wrong: ' + err);
@@ -85,11 +87,13 @@ window.onload = function () {
                     data.addColumn('number', 'Letalidad');
                 }
                 for (let element of dataJson.byDateByMunicipality[0].items) {
+
                     data.addRow([element.geoMunicipality.officialName, element.population, element.totalPositiveCount, element.positiveBy100ThousandPeopleRate, element.totalDeceasedCount, element.mortalityRate]);
                 }
                 var table = new google.visualization.Table(document.getElementById('table_div9'));
                 table.draw(data, { showRowNumber: true, sortColumn: 2, sortAscending: false, width: '100%', height: 'auto' });
             }
+
 
         }
     });
