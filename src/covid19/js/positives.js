@@ -114,7 +114,7 @@ window.onload = function () {
                 var data = new google.visualization.DataTable();
                 if (window.location.href.indexOf("/eu/") > -1) {
                     data.addColumn('date', 'Data');
-                    data.addColumn('number', 'Kasu positiboak');
+                    data.addColumn('number', 'Positiboak (PCR)');
                     data.addColumn('number', 'Euskadi: positiboak 100.000 biztanleko');
                     data.addColumn('number', 'Araba');
                     data.addColumn('number', 'Bizkaia');
@@ -124,7 +124,7 @@ window.onload = function () {
                     });
                 } else {
                     data.addColumn('date', 'Fecha');
-                    data.addColumn('number', 'Casos positivos');
+                    data.addColumn('number', 'Positivos (PCR)');
                     data.addColumn('number', 'Euskadi: Positivos x 100.000 hab.');
                     data.addColumn('number', 'Araba');
                     data.addColumn('number', 'Bizkaia');

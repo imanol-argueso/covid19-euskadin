@@ -67,55 +67,79 @@ window.onload = function () {
                 var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div2'));
                 chart.draw(data, options);
             }
-
             let map = L.map('map')
-            let geojson_url = "https://covid19-euskadin.herokuapp.com/maps/municipios_latlon.json";
-            let addGeoLayer = (data) => {
-                let geojsonLayer = L.geoJson(data, {
-                    onEachFeature: function (feature, layer) {
-                        layer.bindPopup(feature.properties['EUSTAT'])
-                        //layer.setIcon(treeMarker);
-                    }
-                }).addTo(map)
-                map.fitBounds(geojsonLayer.getBounds())
-            }
-            fetch(
-                geojson_url
-            ).then(
-                res => res.json()
-            ).then(
-                data => addGeoLayer(data)
-            )
-
-
-            /*
-            //let map = L.map('map').setView([40.7277831, -74.0080852], 13);
-            L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
-                attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &mdash; Data from <a href="https://datosabiertos.jcyl.es/">JCyL OpenData</a>',
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                 subdomains: 'abcd',
                 minZoom: 1,
                 maxZoom: 16,
                 ext: 'png'
             }).addTo(map)
- 
-            let treeMarker = L.ExtraMarkers.icon({
-                icon: 'fa-leaf',
-                markerColor: 'green',
-                shape: 'square',
-                prefix: 'fa'
-            })
- 
-            let geojson_url = "https://covid19-euskadin.herokuapp.com/maps/municipios_latlon.json"
+            let geojson_url = "../maps/municipios_latlon.json";
             let addGeoLayer = (data) => {
                 let geojsonLayer = L.geoJson(data, {
                     onEachFeature: function (feature, layer) {
-                        layer.bindPopup(feature.properties['arbol_nombre'])
+                        let objetoAFiltrar = dataJson.byMunicipalityByDate.positiveCountByMunicipalityByDate;
+                        let positivos = objetoAFiltrar.filter(element => element.dimension.oid == feature.properties.MUN_MUNI);
+                        console.log(positivos[0].values[0]);
+                        layer.bindPopup(feature.properties["NOMBRE_CAS"] + ' ' + positivos[0].values[0])
                         //layer.setIcon(treeMarker);
-                    }
+                    },
+                    //filter: showPositives,
+                    //style: coloring
                 }).addTo(map)
                 map.fitBounds(geojsonLayer.getBounds())
             }
- 
+            function showPositives(feature) {
+                if (feature.properties.TERRITORIO === 'GIPUZKOA') return true;
+            }
+            function coloring(feature) {
+                for (let elementx of dataJson.byMunicipalityByDate.positiveCountByMunicipalityByDate) {
+                    if (elementx.values.value > 100) {
+                        //console.log(elementx.values.value);
+                        return { color: "#ff0000" };
+
+                        //console.log(elementx.dimension.oid + );
+                        /*
+                        for (let elementy of feature.properties.MUN_MUNI) {
+    
+                            if (elementx.dimension.oid == elementy) {
+                                console.log(elementx.dimension.oid);
+                                
+                                if (elementy.values > 50) {
+                                    return { color: "#ff0000" };
+                                } else {
+                                    return { color: "#ffffff" };
+                                }
+                                
+                            }
+                            */
+                    }
+
+                }
+                //if (feature.properties.TERRITORIO === 'GIPUZKOA') return { color: "#ff0000" };
+            }
+            /*
+                        let positiveLastTwoWeeks = [];
+                        let municipality = {};
+                        //municipality.officialName = id;
+                        //municipality.oid = oid;
+                        //municipality.positiveCount = positiveCount;
+            
+                        for (let element of dataJson.newPositivesByDateByMunicipality) {
+                            console.log(dataJson.newPositivesByDateByMunicipality[dataJson.newPositivesByDateByMunicipality.length - 1].date);
+                            if (element.date < (dataJson.newPositivesByDateByMunicipality[dataJson.newPositivesByDateByMunicipality.length - 1].date.getDate - 14)) {
+                                console.log(element.date);
+                                //for (let element of element.items)
+                                //    positiveLastTwoWeeks.push(element.geoMunicipality.officialName);
+                            }
+            
+                        }
+            
+                        console.log(positiveLastTwoWeeks);
+                        */
+
             fetch(
                 geojson_url
             ).then(
@@ -123,8 +147,6 @@ window.onload = function () {
             ).then(
                 data => addGeoLayer(data)
             )
-*/
-
 
             google.charts.load('current', { 'packages': ['table'] });
             google.charts.setOnLoadCallback(drawTable);
@@ -152,8 +174,6 @@ window.onload = function () {
                 var table = new google.visualization.Table(document.getElementById('table_div9'));
                 table.draw(data, { showRowNumber: true, sortColumn: 2, sortAscending: false, width: '100%', height: 'auto' });
             }
-
-
         }
     });
 }
