@@ -80,65 +80,121 @@ window.onload = function () {
             let addGeoLayer = (data) => {
                 let geojsonLayer = L.geoJson(data, {
                     onEachFeature: function (feature, layer) {
-                        let objetoAFiltrar = dataJson.byMunicipalityByDate.positiveCountByMunicipalityByDate;
-                        let positivos = objetoAFiltrar.filter(element => element.dimension.oid == feature.properties.MUN_MUNI);
-                        console.log(positivos[0].values[0]);
-                        layer.bindPopup(feature.properties["NOMBRE_CAS"] + ' ' + positivos[0].values[0])
-                        //layer.setIcon(treeMarker);
+                        let objetoAFiltrar = dataJson.byDateByMunicipality[0].items;
+                        let positivos = objetoAFiltrar.filter(element => '' + element.geoMunicipality.countyId + element.geoMunicipality.oid === '' + feature.properties.EUSTAT);
+                        if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate < 300) {
+                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
+                            layer.setStyle({
+                                weight: 1,
+                                color: '#FFEDA0',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                            });
+                        } else if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate >= 300 && positivos[0].positiveBy100ThousandPeopleRate < 500) {
+                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
+                            layer.setStyle({
+                                weight: 1,
+                                color: '#FED976',
+                                dashArray: '3',
+                                fillOpacity: 0.7
+                            });
+
+                        }
+
+                        else if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate >= 500 && positivos[0].positiveBy100ThousandPeopleRate < 700) {
+                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
+                            layer.setStyle({
+                                weight: 1,
+                                color: '#FEB24C',
+                                dashArray: '3',
+                                fillOpacity: 0.7
+                            });
+
+                        } else if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate >= 700 && positivos[0].positiveBy100ThousandPeopleRate < 900) {
+                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
+                            layer.setStyle({
+                                weight: 1,
+                                color: '#FD8D3C',
+                                dashArray: '3',
+                                fillOpacity: 0.7
+                            });
+                        } else if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate >= 900 && positivos[0].positiveBy100ThousandPeopleRate < 1100) {
+                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
+                            layer.setStyle({
+                                weight: 1,
+                                color: '#FC4E2A',
+                                dashArray: '0',
+                                fillOpacity: 0.7
+                            });
+
+                        } else if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate >= 1100 && positivos[0].positiveBy100ThousandPeopleRate < 1400) {
+                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
+                            layer.setStyle({
+                                weight: 1,
+                                color: '#E31A1C',
+                                dashArray: '0',
+                                fillOpacity: 0.7
+                            });
+
+                        } else if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate >= 1400 && positivos[0].positiveBy100ThousandPeopleRate < 1700) {
+                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
+                            layer.setStyle({
+                                weight: 1,
+                                color: '#BD0026',
+                                dashArray: '3',
+                                fillOpacity: 0.7
+                            });
+
+                        } else if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate >= 1700) {
+                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
+                            layer.setStyle({
+                                weight: 1,
+                                color: '#800026',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                border: 0
+
+                            });
+
+                        } else if (positivos.length == 0) {
+                            layer.bindPopup('No hay datos');
+                            layer.setStyle({
+                                weight: 1,
+                                color: 'blue',
+                                dashArray: '3',
+                                fillOpacity: 0.3,
+                                border: 0
+
+                            });
+
+                        }
+
                     },
-                    //filter: showPositives,
-                    //style: coloring
                 }).addTo(map)
                 map.fitBounds(geojsonLayer.getBounds())
             }
-            function showPositives(feature) {
-                if (feature.properties.TERRITORIO === 'GIPUZKOA') return true;
-            }
-            function coloring(feature) {
-                for (let elementx of dataJson.byMunicipalityByDate.positiveCountByMunicipalityByDate) {
-                    if (elementx.values.value > 100) {
-                        //console.log(elementx.values.value);
-                        return { color: "#ff0000" };
-
-                        //console.log(elementx.dimension.oid + );
-                        /*
-                        for (let elementy of feature.properties.MUN_MUNI) {
-    
-                            if (elementx.dimension.oid == elementy) {
-                                console.log(elementx.dimension.oid);
-                                
-                                if (elementy.values > 50) {
-                                    return { color: "#ff0000" };
-                                } else {
-                                    return { color: "#ffffff" };
-                                }
-                                
-                            }
-                            */
-                    }
-
-                }
-                //if (feature.properties.TERRITORIO === 'GIPUZKOA') return { color: "#ff0000" };
-            }
             /*
-                        let positiveLastTwoWeeks = [];
-                        let municipality = {};
-                        //municipality.officialName = id;
-                        //municipality.oid = oid;
-                        //municipality.positiveCount = positiveCount;
-            
-                        for (let element of dataJson.newPositivesByDateByMunicipality) {
-                            console.log(dataJson.newPositivesByDateByMunicipality[dataJson.newPositivesByDateByMunicipality.length - 1].date);
-                            if (element.date < (dataJson.newPositivesByDateByMunicipality[dataJson.newPositivesByDateByMunicipality.length - 1].date.getDate - 14)) {
-                                console.log(element.date);
-                                //for (let element of element.items)
-                                //    positiveLastTwoWeeks.push(element.geoMunicipality.officialName);
-                            }
-            
-                        }
-            
-                        console.log(positiveLastTwoWeeks);
-                        */
+            var legend = L.control({ position: 'bottomright' });
+
+            legend.onAdd = function (map) {
+
+                var div = L.DomUtil.create('div', 'info legend'),
+                    grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+                    labels = [];
+
+                // loop through our density intervals and generate a label with a colored square for each interval
+
+                for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                }
+
+                return div;
+            };
+
+            legend.addTo(map);
+            */
 
             fetch(
                 geojson_url
