@@ -33,7 +33,11 @@ table.google-visualization-table-table {
 #linechart_material2, #linechart_material3, #linechart_material, #linechart_material0, #linechart_material7, #columnchart_material, #columnchart_material2, #barchart_material6 { width:900px; height: 500px; margin-top:3em;}
 #linechart_material_mini1, #linechart_material_mini2, #linechart_material_mini3 {width: 297px; height: 197px; float: left;}
 #series_chart_div, #series_chart_div2, #series_chart_div3  {width: 900px; height: 800px;}
-#map {height:400px;width:100%;}
+#map, #map2 {height:400px;width:100%;}
+#series_chart_div2 {
+    float: left;
+}
+
 
 @media only screen and (max-width: 600px) {
     #linechart_material2 {
@@ -221,14 +225,40 @@ nav.navbar button.navbar-toggler {
     float:right;
     padding-top: 4px;
 }
-.legend {
+.legend, .legend2 {
     line-height: 18px;
     color: #555;
 }
-.legend i {
+.legend i, .legend2 i {
     width: 18px;
     height: 18px;
     float: left;
     margin-right: 8px;
     opacity: 0.7;
 }
+.info, .info2 {
+    padding: 6px 8px;
+    /*font: 14px/16px Arial, Helvetica, sans-serif;*/
+    /*line-height: 16px;*/
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4, .info2 h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+.info_p {
+    margin-bottom:0.5em;
+}
+h2.intro_graph {
+margin-top: 1.5em;
+width:100%;
+float:left;
+}
+p.intro_graph {
+    margin-top: 0.5em;
+    width:100%;
+    float:left;
+    }

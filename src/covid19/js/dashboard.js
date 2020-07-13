@@ -159,4 +159,95 @@ window.onload = function () {
         }
     });
 
+
+    getJSON(DATAFILES.BYMUNICIPALITY, function (err, dataJson) {
+        if (err != null) {
+            alert('Something went wrong: ' + err);
+        } else {
+
+
+            let map2 = L.map('map2')
+            L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map2)
+            let geojson_url2 = "./maps/municipios_latlon.json";
+            function getColor(d) {
+                return d > 1700 ? '#800026' :
+                    d > 1400 ? '#BD0026' :
+                        d > 1100 ? '#E31A1C' :
+                            d > 900 ? '#FC4E2A' :
+                                d > 700 ? '#FD8D3C' :
+                                    d > 500 ? '#FEB24C' :
+                                        d > 300 ? '#FED976' :
+                                            d > 0 ? '#FFEDA0' :
+                                                'white'
+            }
+            function style(dataValue) {
+                return {
+                    fillColor: getColor(dataValue),
+                    weight: 1,
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                };
+            }
+            //Leyenda con los rangos
+            var legend2 = L.control({ position: 'bottomright' });
+
+            legend2.onAdd = function (map2) {
+
+                var div = L.DomUtil.create('div', 'info legend'),
+                    grades = [0, 300, 500, 700, 900, 1100, 1400, 1700],
+                    labels = [];
+                for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                }
+
+                return div;
+            };
+            legend2.addTo(map2);
+            var geojsonLayer2;
+            let addGeoLayer2 = (data) => {
+                geojsonLayer2 = L.geoJson(data, {
+                    onEachFeature: function (feature, layer) {
+                        let objetoAFiltrar = dataJson.byDateByMunicipality[0].items;
+                        let positivos = objetoAFiltrar.filter(element => '' + element.geoMunicipality.countyId.id + element.geoMunicipality.oid.id === '' + feature.properties.EUSTAT);
+
+                        if (positivos.length !== 0) {
+                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
+                            layer.setStyle(style(positivos[0].positiveBy100ThousandPeopleRate));
+                        } else {
+                            layer.bindPopup('No hay datos');
+                            layer.setStyle(style(0));
+                        }
+                    },
+                }).addTo(map2)
+                map2.fitBounds(geojsonLayer2.getBounds())
+            }
+
+            //Añadimos la capa de info
+            var info2 = L.control();
+
+            info2.onAdd = function (map2) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+
+            info2.update = function () {
+                this._div.innerHTML = '<h4>Positivos por 100.000 habitantes</h4><p class="info_p">Número de positivos por 100.000 habitantes en los municipios de Euskadi.</p>';
+            };
+            info2.addTo(map2);
+            fetch(
+                geojson_url2
+            ).then(
+                res => res.json()
+            ).then(
+                data => addGeoLayer2(data)
+            )
+        }
+    });
+
 }

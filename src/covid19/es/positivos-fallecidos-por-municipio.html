@@ -139,18 +139,34 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
-                        <div id="series_chart_div2"></div>
-                        <h2>Mapa de municipios</h2>
-                        <p>Tasa de positivos por 100.00 habitantes.</p>
+                        <h2 class="intro_graph">Positivos por municipio</h2>
+                        <p class="intro_graph">Tasa de <strong>positivos acumulados</strong> por 100.000 habitantes en
+                            los municipios de
+                            Euskadi, desde el
+                            inicio de la pandemia.</p>
                         <div id="map"></div>
+
+                        <h2 class="intro_graph">Positivos y letalidad</h2>
+                        <p class="intro_graph">Se muestran los municipios de más de 20.000 habitantes, su tasa de
+                            positivos y su letalidad acumulada desde el inicio de la pandemia.</p>
+                        <div id="series_chart_div2"></div>
+
+                        <h2 class="intro_graph">Letalidad por municipio</h2>
+                        <p class="intro_graph">Letalidad en los municipios de Euskadi desde el inicio de la pandemia.
+                        </p>
+                        <div id="map2"></div>
+
                     </div>
+
+
                     <div class="tab-pane fade" id="data" role="tabpanel" aria-labelledby="data-tab">
                         <div id="table_div9"></div>
                     </div>
                 </div>
-
-            </main>
         </div>
+
+        </main>
+    </div>
     </div>
     <footer class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow footer">
         <ul class="navbar-nav px-3">

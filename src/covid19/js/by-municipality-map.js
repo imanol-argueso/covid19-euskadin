@@ -31,6 +31,174 @@ window.onload = function () {
         if (err != null) {
             alert('Something went wrong: ' + err);
         } else {
+
+            let map = L.map('map')
+            L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map)
+            let geojson_url = "../maps/municipios_latlon.json";
+            function getColor(d) {
+                return d > 1700 ? '#800026' :
+                    d > 1400 ? '#BD0026' :
+                        d > 1100 ? '#E31A1C' :
+                            d > 900 ? '#FC4E2A' :
+                                d > 700 ? '#FD8D3C' :
+                                    d > 500 ? '#FEB24C' :
+                                        d > 300 ? '#FED976' :
+                                            d > 0 ? '#FFEDA0' :
+                                                'white'
+            }
+            function style(dataValue) {
+                return {
+                    fillColor: getColor(dataValue),
+                    weight: 1,
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                };
+            }
+            //Leyenda con los rangos
+            var legend = L.control({ position: 'bottomright' });
+
+            legend.onAdd = function (map) {
+
+                var div = L.DomUtil.create('div', 'info legend'),
+                    grades = [0, 300, 500, 700, 900, 1100, 1400, 1700],
+                    labels = [];
+                for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                }
+
+                return div;
+            };
+            legend.addTo(map);
+            var geojsonLayer;
+            let addGeoLayer = (data) => {
+                geojsonLayer = L.geoJson(data, {
+                    onEachFeature: function (feature, layer) {
+                        let objetoAFiltrar = dataJson.byDateByMunicipality[0].items;
+                        let positivos = objetoAFiltrar.filter(element => '' + element.geoMunicipality.countyId.id + element.geoMunicipality.oid.id === '' + feature.properties.EUSTAT);
+
+                        if (positivos.length !== 0) {
+                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
+                            layer.setStyle(style(positivos[0].positiveBy100ThousandPeopleRate));
+                        } else {
+                            layer.bindPopup('No hay datos');
+                            layer.setStyle(style(0));
+                        }
+                    },
+                }).addTo(map)
+                map.fitBounds(geojsonLayer.getBounds())
+            }
+
+            //Añadimos la capa de info
+            var info = L.control();
+
+            info.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+
+            info.update = function () {
+                this._div.innerHTML = '<h4>Positivos por 100.000 habitantes</h4><p class="info_p">Número de positivos por 100.000 habitantes en los municipios de Euskadi.</p>';
+            };
+            info.addTo(map);
+            fetch(
+                geojson_url
+            ).then(
+                res => res.json()
+            ).then(
+                data => addGeoLayer(data)
+            )
+
+            let map2 = L.map('map2')
+            L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map2)
+            //let geojson_url2 = "./maps/municipios_latlon.json";
+            function getColor2(d) {
+                return d > 40 ? '#800026' :
+                    d > 30 ? '#BD0026' :
+                        d > 20 ? '#E31A1C' :
+                            d > 16 ? '#FC4E2A' :
+                                d > 12 ? '#FD8D3C' :
+                                    d > 8 ? '#FEB24C' :
+                                        d > 4 ? '#FED976' :
+                                            d > 0 ? '#FFEDA0' :
+                                                'white'
+            }
+            function style2(dataValue) {
+                return {
+                    fillColor: getColor2(dataValue),
+                    weight: 1,
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                };
+            }
+            //Leyenda con los rangos
+            var legend2 = L.control({ position: 'bottomright' });
+
+            legend2.onAdd = function (map2) {
+
+                var div = L.DomUtil.create('div', 'info legend'),
+                    grades = [0, 4, 8, 12, 16, 20, 30, 40],
+                    labels = [];
+                for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor2(grades[i] + 1) + '"></i> ' +
+                        grades[i] + (grades[i + 1] ? '%&ndash;' + grades[i + 1] + '%<br>' : '% +');
+                }
+
+                return div;
+            };
+            legend2.addTo(map2);
+            var geojsonLayer2;
+            let addGeoLayer2 = (data) => {
+                geojsonLayer2 = L.geoJson(data, {
+                    onEachFeature: function (feature, layer) {
+                        let objetoAFiltrar = dataJson.byDateByMunicipality[0].items;
+                        let positivos = objetoAFiltrar.filter(element => '' + element.geoMunicipality.countyId.id + element.geoMunicipality.oid.id === '' + feature.properties.EUSTAT);
+
+                        if (positivos.length !== 0) {
+                            layer.bindPopup('Letalidad en ' + feature.properties.NOMBRE_EUS + ': ' + positivos[0].mortalityRate + '%');
+                            layer.setStyle(style2(positivos[0].mortalityRate));
+                        } else {
+                            layer.bindPopup('No hay datos');
+                            layer.setStyle(style2(0));
+                        }
+                    },
+                }).addTo(map2)
+                map2.fitBounds(geojsonLayer2.getBounds())
+            }
+
+            //Añadimos la capa de info
+            var info2 = L.control();
+
+            info2.onAdd = function (map2) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+
+            info2.update = function () {
+                this._div.innerHTML = '<h4>Letalidad</h4><p class="info_p">Letalidad en los municipios de Euskadi desde el inicio de la pandemia.</p>';
+            };
+            info2.addTo(map2);
+            fetch(
+                geojson_url
+            ).then(
+                res => res.json()
+            ).then(
+                data => addGeoLayer2(data)
+            )
+
+
+
+
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawSeriesChart);
 
@@ -67,142 +235,6 @@ window.onload = function () {
                 var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div2'));
                 chart.draw(data, options);
             }
-            let map = L.map('map')
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                subdomains: 'abcd',
-                minZoom: 1,
-                maxZoom: 16,
-                ext: 'png'
-            }).addTo(map)
-            let geojson_url = "../maps/municipios_latlon.json";
-            let addGeoLayer = (data) => {
-                let geojsonLayer = L.geoJson(data, {
-                    onEachFeature: function (feature, layer) {
-                        let objetoAFiltrar = dataJson.byDateByMunicipality[0].items;
-                        let positivos = objetoAFiltrar.filter(element => '' + element.geoMunicipality.countyId + element.geoMunicipality.oid === '' + feature.properties.EUSTAT);
-                        if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate < 300) {
-                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
-                            layer.setStyle({
-                                weight: 1,
-                                color: '#FFEDA0',
-                                dashArray: '3',
-                                fillOpacity: 0.7,
-                            });
-                        } else if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate >= 300 && positivos[0].positiveBy100ThousandPeopleRate < 500) {
-                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
-                            layer.setStyle({
-                                weight: 1,
-                                color: '#FED976',
-                                dashArray: '3',
-                                fillOpacity: 0.7
-                            });
-
-                        }
-
-                        else if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate >= 500 && positivos[0].positiveBy100ThousandPeopleRate < 700) {
-                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
-                            layer.setStyle({
-                                weight: 1,
-                                color: '#FEB24C',
-                                dashArray: '3',
-                                fillOpacity: 0.7
-                            });
-
-                        } else if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate >= 700 && positivos[0].positiveBy100ThousandPeopleRate < 900) {
-                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
-                            layer.setStyle({
-                                weight: 1,
-                                color: '#FD8D3C',
-                                dashArray: '3',
-                                fillOpacity: 0.7
-                            });
-                        } else if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate >= 900 && positivos[0].positiveBy100ThousandPeopleRate < 1100) {
-                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
-                            layer.setStyle({
-                                weight: 1,
-                                color: '#FC4E2A',
-                                dashArray: '0',
-                                fillOpacity: 0.7
-                            });
-
-                        } else if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate >= 1100 && positivos[0].positiveBy100ThousandPeopleRate < 1400) {
-                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
-                            layer.setStyle({
-                                weight: 1,
-                                color: '#E31A1C',
-                                dashArray: '0',
-                                fillOpacity: 0.7
-                            });
-
-                        } else if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate >= 1400 && positivos[0].positiveBy100ThousandPeopleRate < 1700) {
-                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
-                            layer.setStyle({
-                                weight: 1,
-                                color: '#BD0026',
-                                dashArray: '3',
-                                fillOpacity: 0.7
-                            });
-
-                        } else if (positivos.length !== 0 && positivos[0].positiveBy100ThousandPeopleRate >= 1700) {
-                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
-                            layer.setStyle({
-                                weight: 1,
-                                color: '#800026',
-                                dashArray: '3',
-                                fillOpacity: 0.7,
-                                border: 0
-
-                            });
-
-                        } else if (positivos.length == 0) {
-                            layer.bindPopup('No hay datos');
-                            layer.setStyle({
-                                weight: 1,
-                                color: 'blue',
-                                dashArray: '3',
-                                fillOpacity: 0.3,
-                                border: 0
-
-                            });
-
-                        }
-
-                    },
-                }).addTo(map)
-                map.fitBounds(geojsonLayer.getBounds())
-            }
-            /*
-            var legend = L.control({ position: 'bottomright' });
-
-            legend.onAdd = function (map) {
-
-                var div = L.DomUtil.create('div', 'info legend'),
-                    grades = [0, 10, 20, 50, 100, 200, 500, 1000],
-                    labels = [];
-
-                // loop through our density intervals and generate a label with a colored square for each interval
-
-                for (var i = 0; i < grades.length; i++) {
-                    div.innerHTML +=
-                        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-                }
-
-                return div;
-            };
-
-            legend.addTo(map);
-            */
-
-            fetch(
-                geojson_url
-            ).then(
-                res => res.json()
-            ).then(
-                data => addGeoLayer(data)
-            )
 
             google.charts.load('current', { 'packages': ['table'] });
             google.charts.setOnLoadCallback(drawTable);
