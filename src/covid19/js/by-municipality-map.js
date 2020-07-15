@@ -31,6 +31,21 @@ window.onload = function () {
         if (err != null) {
             alert('Something went wrong: ' + err);
         } else {
+            var popupInfo;
+            var popupNoData;
+            var title;
+            var titleParagraph;
+            if (window.location.href.indexOf("/eu/") > -1) {
+                popupInfo = ' positibo 100.000 biztanleko';
+                popupNoData = 'Ez dago positiborik.';
+                title = 'Positiboak';
+                titleParagraph = 'Euskadiko udalerrietan duten 100.000 biztanleko positiboen tasa.';
+            } else {
+                popupInfo = ' positivos por 100.000 hab.';
+                popupNoData = 'No hay positivos.';
+                title = 'Positivos';
+                titleParagraph = 'Tasa de positivos por 100.000 habitantes en cada municipio.';
+            }
 
             let map = L.map('map')
             L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
@@ -82,10 +97,10 @@ window.onload = function () {
                         let positivos = objetoAFiltrar.filter(element => '' + element.geoMunicipality.countyId.id + element.geoMunicipality.oid.id === '' + feature.properties.EUSTAT);
 
                         if (positivos.length !== 0) {
-                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
+                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + popupInfo);
                             layer.setStyle(style(positivos[0].positiveBy100ThousandPeopleRate));
                         } else {
-                            layer.bindPopup('No hay datos');
+                            layer.bindPopup(popupNoData);
                             layer.setStyle(style(0));
                         }
                     },
@@ -103,7 +118,7 @@ window.onload = function () {
             };
 
             info.update = function () {
-                this._div.innerHTML = '<h4>Positivos por 100.000 habitantes</h4><p class="info_p">Número de positivos por 100.000 habitantes en los municipios de Euskadi.</p>';
+                this._div.innerHTML = '<h4>' + title + '</h4><p class="info_p">' + titleParagraph + '</p>';
             };
             info.addTo(map);
             fetch(
@@ -113,6 +128,22 @@ window.onload = function () {
             ).then(
                 data => addGeoLayer(data)
             )
+
+            var popupInfo2;
+            var popupNoData2;
+            var title2;
+            var titleParagraph2;
+            if (window.location.href.indexOf("/eu/") > -1) {
+                popupInfo2 = '(%)-eko hilgarritasuna';
+                popupNoData2 = 'Ez dago daturik.';
+                title2 = 'Hilgarritasuna';
+                titleParagraph2 = 'Pandemiaren hasieratik Euskadiko udalerrietan izandako hilgarritasuna.';
+            } else {
+                popupInfo2 = '% de letalidad';
+                popupNoData2 = 'No hay datos.';
+                title2 = 'Letalidad';
+                titleParagraph2 = 'Letalidad en los municipios de Euskadi desde el inicio de la pandemia.';
+            }
 
             let map2 = L.map('map2')
             L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
@@ -164,10 +195,10 @@ window.onload = function () {
                         let positivos = objetoAFiltrar.filter(element => '' + element.geoMunicipality.countyId.id + element.geoMunicipality.oid.id === '' + feature.properties.EUSTAT);
 
                         if (positivos.length !== 0) {
-                            layer.bindPopup('Letalidad en ' + feature.properties.NOMBRE_EUS + ': ' + positivos[0].mortalityRate + '%');
+                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].mortalityRate + popupInfo2);
                             layer.setStyle(style2(positivos[0].mortalityRate));
                         } else {
-                            layer.bindPopup('No hay datos');
+                            layer.bindPopup(popupNoData2);
                             layer.setStyle(style2(0));
                         }
                     },
@@ -185,7 +216,7 @@ window.onload = function () {
             };
 
             info2.update = function () {
-                this._div.innerHTML = '<h4>Letalidad</h4><p class="info_p">Letalidad en los municipios de Euskadi desde el inicio de la pandemia.</p>';
+                this._div.innerHTML = '<h4>' + title2 + '</h4><p class="info_p">' + titleParagraph2 + '</p>';
             };
             info2.addTo(map2);
             fetch(

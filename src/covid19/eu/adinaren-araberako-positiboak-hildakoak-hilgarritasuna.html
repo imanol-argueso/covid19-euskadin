@@ -121,10 +121,30 @@
                         </div>
                     </div>
                 </div>
-                <div id="series_chart_div"></div>
-                <div id="barchart_material6"></div>
-                <h2>Datuak</h2>
-                <div id="table_div4"></div>
+
+                <p>Eusko Jaurlaritzak positibo, hildako eta hilgarritasunari buruzko datuak 10 urteko tarteetan ematen
+                    ditu.</p>
+
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="graphs-tab" data-toggle="tab" href="#graphs" role="tab"
+                            aria-controls="graphs" aria-selected="true">Grafikoak</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data"
+                            aria-selected="false">Datuak</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
+                        <div id="series_chart_div"></div>
+                        <div id="barchart_material6"></div>
+                    </div>
+                    <div class="tab-pane fade" id="data" role="tabpanel" aria-labelledby="data-tab">
+                        <div id="table_div4"></div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>

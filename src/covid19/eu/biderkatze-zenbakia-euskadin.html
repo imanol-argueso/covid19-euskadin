@@ -17,7 +17,6 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'UA-141364393-2');
     </script>
 </head>
@@ -119,9 +118,29 @@
                         </div>
                     </div>
                 </div>
-                <div id="linechart_material3"></div>
-                <h2>Datuak</h2>
-                <div class="table-responsive" id="table_div3"></div>
+                <p>Epidemiologiaren arloan, infekzio baten oinarrizko biderkatze-zenbakia (R0) honako hau da: kasu jakin
+                    batek infekzio-aldi batean, batez beste, sortzen dituen kasu berriak. Metrika hau erabilgarria da
+                    gaixotasun infekzioso batek epidemia agerraldi nabaria noiz eragin dezakeen zehazten laguntzen
+                    duelako.</p>
+
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="graphs-tab" data-toggle="tab" href="#graphs" role="tab"
+                            aria-controls="graphs" aria-selected="true">Grafikoak</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data"
+                            aria-selected="false">Datuak</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
+                        <div id="linechart_material3"></div>
+                    </div>
+                    <div class="tab-pane fade" id="data" role="tabpanel" aria-labelledby="data-tab">
+                        <div class="table-responsive" id="table_div3"></div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>

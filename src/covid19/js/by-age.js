@@ -72,7 +72,7 @@ window.onload = function () {
             function drawChart() {
                 var data = new google.visualization.DataTable();
                 if (window.location.href.indexOf("/eu/") > -1) {
-                    data.addColumn('string', 'Data');
+                    data.addColumn('string', 'Rango de edad');
                     data.addColumn('number', 'Positiboak');
                     data.addColumn('number', 'Hildakoak');
                     var options = {
@@ -83,7 +83,7 @@ window.onload = function () {
                         bars: 'horizontal' // Required for Material Bar Charts.
                     };
                 } else {
-                    data.addColumn('string', 'Fecha');
+                    data.addColumn('string', 'Adin tartea');
                     data.addColumn('number', 'Positivos');
                     data.addColumn('number', 'Fallecidos');
                     var options = {

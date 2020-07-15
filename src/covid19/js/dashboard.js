@@ -164,6 +164,21 @@ window.onload = function () {
         if (err != null) {
             alert('Something went wrong: ' + err);
         } else {
+            var popupInfo;
+            var popupNoData;
+            var title;
+            var titleParagraph;
+            if (window.location.href.indexOf("/eu/") > -1) {
+                popupInfo = ' positibo 100.000 biztanleko';
+                popupNoData = 'Ez dago positiborik.';
+                title = 'Positiboak';
+                titleParagraph = 'Euskadiko udalerriek duten 100.000 biztanleko positiboen tasa.';
+            } else {
+                popupInfo = ' positivos por 100.000 hab.';
+                popupNoData = 'No hay positivos.';
+                title = 'Positivos';
+                titleParagraph = 'Tasa de positivos por 100.000 habitantes en cada municipio.';
+            }
 
 
             let map2 = L.map('map2')
@@ -171,7 +186,12 @@ window.onload = function () {
                 maxZoom: 18,
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map2)
-            let geojson_url2 = "./maps/municipios_latlon.json";
+            let geojson_url2;
+            if (window.location.href.indexOf("/eu/") > -1) {
+                geojson_url2 = "../maps/municipios_latlon.json";
+            } else {
+                geojson_url2 = "./maps/municipios_latlon.json";
+            }
             function getColor(d) {
                 return d > 1700 ? '#800026' :
                     d > 1400 ? '#BD0026' :
@@ -210,23 +230,24 @@ window.onload = function () {
             legend2.addTo(map2);
             var geojsonLayer2;
             let addGeoLayer2 = (data) => {
+
+
                 geojsonLayer2 = L.geoJson(data, {
                     onEachFeature: function (feature, layer) {
                         let objetoAFiltrar = dataJson.byDateByMunicipality[0].items;
                         let positivos = objetoAFiltrar.filter(element => '' + element.geoMunicipality.countyId.id + element.geoMunicipality.oid.id === '' + feature.properties.EUSTAT);
 
                         if (positivos.length !== 0) {
-                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + ' positivos por 100.000 hab.');
+                            layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + popupInfo);
                             layer.setStyle(style(positivos[0].positiveBy100ThousandPeopleRate));
                         } else {
-                            layer.bindPopup('No hay datos');
+                            layer.bindPopup(popupNoData);
                             layer.setStyle(style(0));
                         }
                     },
                 }).addTo(map2)
                 map2.fitBounds(geojsonLayer2.getBounds())
             }
-
             //Añadimos la capa de info
             var info2 = L.control();
 
@@ -237,7 +258,7 @@ window.onload = function () {
             };
 
             info2.update = function () {
-                this._div.innerHTML = '<h4>Positivos por 100.000 habitantes</h4><p class="info_p">Número de positivos por 100.000 habitantes en los municipios de Euskadi.</p>';
+                this._div.innerHTML = '<h4>' + title + '</h4><p class="info_p">' + titleParagraph + '</p>';
             };
             info2.addTo(map2);
             fetch(
