@@ -37,6 +37,104 @@ window.onload = function () {
 
             document.getElementById("fechaActualizacion").innerHTML += updated(dataJson.dataByDateByHealthZone[0].date);
 
+            var popupInfo;
+            var popupNoData;
+            var title;
+            var titleParagraph;
+            if (window.location.href.indexOf("/eu/") > -1) {
+                popupInfo = ' positibo 100.000 biztanleko';
+                popupNoData = 'Ez dago positiborik.';
+                title = 'Positiboak';
+                titleParagraph = 'Euskadiko udalerrietan duten 100.000 biztanleko positiboen tasa.';
+            } else {
+                popupInfo = ' positivos por 100.000 hab.';
+                popupNoData = 'No hay positivos.';
+                title = 'Positivos';
+                titleParagraph = 'Tasa de positivos por 100.000 habitantes en cada municipio.';
+            }
+
+            let map = L.map('map')
+            L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map)
+            let geojson_url = "../maps/osasun_eremuak_2018_latlon.json";
+            function getColor(d) {
+                return d > 1700 ? '#800026' :
+                    d > 1400 ? '#BD0026' :
+                        d > 1100 ? '#E31A1C' :
+                            d > 900 ? '#FC4E2A' :
+                                d > 700 ? '#FD8D3C' :
+                                    d > 500 ? '#FEB24C' :
+                                        d > 300 ? '#FED976' :
+                                            d > 0 ? '#FFEDA0' :
+                                                'white'
+            }
+            function style(dataValue) {
+                return {
+                    fillColor: getColor(dataValue),
+                    weight: 1,
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                };
+            }
+            //Leyenda con los rangos
+            var legend = L.control({ position: 'bottomright' });
+
+            legend.onAdd = function (map) {
+
+                var div = L.DomUtil.create('div', 'info legend'),
+                    grades = [0, 300, 500, 700, 900, 1100, 1400, 1700],
+                    labels = [];
+                for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                }
+
+                return div;
+            };
+            legend.addTo(map);
+            var geojsonLayer;
+            let addGeoLayer = (data) => {
+                geojsonLayer = L.geoJson(data, {
+                    onEachFeature: function (feature, layer) {
+                        let objetoAFiltrar = dataJson.dataByDateByHealthZone[0].items;
+                        let positivos = objetoAFiltrar.filter(element => '' + element.healthZone.healthZoneId === '' + feature.ZON_Cod);
+
+                        if (positivos.length !== 0) {
+                            layer.bindPopup(feature.ZONA_Nom + ': ' + positivos[0].positiveBy100ThousandPeopleRate + popupInfo);
+                            layer.setStyle(style(positivos[0].positiveBy100ThousandPeopleRate));
+                        } else {
+                            layer.bindPopup(popupNoData);
+                            layer.setStyle(style(0));
+                        }
+                    },
+                }).addTo(map)
+                map.fitBounds(geojsonLayer.getBounds())
+            }
+
+            //Añadimos la capa de info
+            var info = L.control();
+
+            info.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+
+            info.update = function () {
+                this._div.innerHTML = '<h4>' + title + '</h4><p class="info_p">' + titleParagraph + '</p>';
+            };
+            info.addTo(map);
+            fetch(
+                geojson_url
+            ).then(
+                res => res.json()
+            ).then(
+                data => addGeoLayer(data)
+            )
+
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawSeriesChart);
 

@@ -95,19 +95,19 @@ div.dashboardContainer i, div.dashboardLiteralContainer i {
     float: left;
     text-align: center;
     padding: 0.2em;
-    font-size: 3em;
+    font-size: 3.5em;
     color: #ffffff;
     background-color: #6c757d;
     /*background-color: #0056b3;*/
     border-top-left-radius: 0.1em;
-    height:69px;
+    height:79px;
 }
 div.dashboardContainer .literal, div.dashboardLiteralContainer .literal {
     width: 70%;
     float:left;
     padding-left: 0.8em;
     border-bottom: 1px solid #dee2e6;
-    height:70px;
+    height:80px;
     background-color: #6c757d;
     /*background-color: #0056b3;*/
     color:#ffffff;
@@ -119,9 +119,25 @@ div.dashboardLiteralContainer .literal {
 div.dashboardLiteralContainer i {
     border-bottom-left-radius: 0.1em;
 }
-div.dashboardContainer .literal div, div.dashboardLiteralContainer .literal div {
-    font-size: 130%;
+div.dashboardContainer .literal div p:first-child, div.dashboardLiteralContainer .literal div p:first-child{
+    font-size: 150%;
     font-weight: 600;
+}
+div.dashboard p.literalDisplay {
+    font-size: 120%;
+}
+div.dashboard div.fechaActualizacion {
+    margin: 1.5em 2em 1.5em 1.3em;
+}
+div.fechaActualizacionContent {
+    margin: 1.5em 2em 1.5em 0em;
+}
+div.dashboard div.fechaActualizacion, div.fechaActualizacion, div.fechaActualizacionContent {
+    font-size:90%;
+    color: #495057;
+}
+div.dashboardContainer .literal div p, div.dashboardLiteralContainer .literal div p {
+    margin-bottom: 0rem;
 }
 div.dashboard #linechart_material3, div.dashboard #linechart_material, div.dashboard #linechart_material2 {
     float:left;
@@ -144,6 +160,13 @@ div.dashboard div.detalle {
     width: 60%;
     float: left;
     padding-left: 0.5em;
+    margin-bottom: 0;
+    font-size:90%;
+}
+#actualizadoPcrTestCount, #actualizadoserologyTestCount, #actualizadopcrUniquePersonCount, #actualizadonewHospitalAdmissionsWithPCRCount, #actualizadoicuPeopleCount, #actualizadohospitalReleasedCount {
+    width: 95%;
+    float: left;
+    padding-left: 0em;
     margin-bottom: 0;
     font-size:90%;
 }

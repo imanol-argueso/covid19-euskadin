@@ -125,15 +125,19 @@
                     </div>
                 </div>
                 <div class="dashboard">
+                    <div id="fechaActualizacion" class="fechaActualizacion">Última actualización de datos del Gobierno
+                        Vasco: </div>
                     <div id="positivosContainer" class="dashboardContainer">
                         <i class="fas fa-user-plus"></i>
                         <div class="literal">
-                            <div id="positivos"></div>
-                            <p>Casos positivos totales</p>
+                            <div class="display">
+                                <p id="positivos"></p>
+                                <p class="literalDisplay">Positivos totales</p>
+                            </div>
                         </div>
                         <div id="linechart_material_mini1"></div>
                         <div class="detalle">
-                            <p id="actualizadoPositivos">Actualizado: </p>
+                            <p id="actualizadoPositivos"></p>
                             <a href="./es/positivos.html">Más detalle</a>
                         </div>
                     </div>
@@ -141,12 +145,14 @@
                     <div id="r0Container" class="dashboardContainer">
                         <i class="fas fa-viruses"></i>
                         <div class="literal">
-                            <div id="r0"></div>
-                            <p>Número de reproducción</p>
+                            <div class="display">
+                                <p id="r0"></p>
+                                <p class="literalDisplay">Número reproducción</p>
+                            </div>
                         </div>
                         <div id="linechart_material_mini3"></div>
                         <div class="detalle">
-                            <p id="actualizadoR0">Actualizado: </p>
+                            <p id="actualizadoR0"></p>
                             <a href="./es/numero-reproduccion-euskadi.html">Más
                                 detalle</a>
                         </div>
@@ -155,12 +161,14 @@
                     <div id="fallecidosContainer" class="dashboardContainer">
                         <i class="fas fa-procedures"></i>
                         <div class="literal">
-                            <div id="fallecidos"></div>
-                            <p>Fallecidos</p>
+                            <div class="display">
+                                <p id="fallecidos"></p>
+                                <p class="literalDisplay">Fallecidos</p>
+                            </div>
                         </div>
                         <div id="linechart_material_mini2"></div>
                         <div class="detalle">
-                            <p id="actualizadoFallecidos">Actualizado: </p>
+                            <p id="actualizadoFallecidos"></p>
                             <a href="./es/fallecidos.html">Más detalle</a>
                         </div>
                     </div>
@@ -168,47 +176,65 @@
                     <div id="testsPcrContainer" class="dashboardLiteralContainer">
                         <i class="fas fa-vial"></i>
                         <div class="literal">
-                            <div id="tests"></div>
-                            <p>Test PCR realizados</p>
+                            <div class="display">
+                                <p id="tests"></p>
+                                <p class="literalDisplay">Test PCR</p>
+                            </div>
+                            <div id="actualizadoPcrTestCount"></div>
                         </div>
                     </div>
 
                     <div id="testsRapidosContainer" class="dashboardLiteralContainer">
                         <i class="fas fa-user-nurse"></i>
                         <div class="literal">
-                            <div id="testsRapidos"></div>
-                            <p>Test rápidos realizados</p>
+                            <div class="display">
+                                <p id="testsRapidos"></p>
+                                <p class="literalDisplay">Test rápidos</p>
+                            </div>
+                            <p id="actualizadoserologyTestCount"></p>
                         </div>
                     </div>
 
                     <div id="testsPcrContainer" class="dashboardLiteralContainer">
                         <i class="fas fa-users"></i>
                         <div class="literal">
-                            <div id="personasUnicasPcr"></div>
-                            <p>Personas únicas con PCR+</p>
+                            <div class="display">
+                                <p id="personasUnicasPcr"></p>
+                                <p class="literalDisplay">Personas únicas PCR+</p>
+                            </div>
+                            <p id="actualizadopcrUniquePersonCount"></p>
                         </div>
                     </div>
 
                     <div id="hospitalizacionesContainer" class="dashboardLiteralContainer">
                         <i class="fas fa-hospital-user"></i>
                         <div class="literal">
-                            <div id="hospitalizaciones"></div>
-                            <p>Ingresos en planta (PCR+)</p>
+                            <div class="display">
+                                <p id="hospitalizaciones"></p>
+                                <p class="literalDisplay">Ingresos planta PCR+</p>
+                            </div>
+                            <p id="actualizadonewHospitalAdmissionsWithPCRCount"></p>
                         </div>
                     </div>
                     <div id="testsRapidosContainer" class="dashboardLiteralContainer">
                         <i class="fas fa-ambulance"></i>
                         <div class="literal">
-                            <div id="hospitalizadosUci"></div>
-                            <p>Hospitalizados en UCI</p>
+                            <div class="display">
+                                <p id="hospitalizadosUci"></p>
+                                <p class="literalDisplay">Hospitalizados en UCI</p>
+                            </div>
+                            <p id="actualizadoicuPeopleCount"></p>
                         </div>
                     </div>
 
                     <div id="hospitalizacionesContainer" class="dashboardLiteralContainer">
                         <i class="fas fa-user-minus"></i>
                         <div class="literal">
-                            <div id="altasHospitalarias"></div>
-                            <p>Altas hospitalarias</p>
+                            <div class="display">
+                                <p id="altasHospitalarias"></p>
+                                <p class="literalDisplay">Altas hospitalarias</p>
+                            </div>
+                            <p id="actualizadohospitalReleasedCount"></p>
                         </div>
                     </div>
                 </div>
@@ -216,6 +242,9 @@
                 <p class="intro_graph">Tasa de positivos por 100.000 habitantes acumulada desde el inicio de la
                     pandemia, por municipio de Euskadi.</p>
                 <div id="map2"></div>
+                <div id="fechaActualizacionMapa" class="fechaActualizacion">El Gobierno Vasco ha actualizado los datos
+                    acumulados de municipios el
+                </div>
             </main>
         </div>
     </div>

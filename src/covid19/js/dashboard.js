@@ -36,34 +36,29 @@ function dashboard(jsonData, jsonDataId) {
     };
     return (today) + ' (' + format(increment) + ')';
 }
+function updated(jsonData) {
+    let lastdate = new Date(jsonData);
+    let formattedlastdate = lastdate.getDate() + "/" + (lastdate.getMonth() + 1) + "/" + lastdate.getFullYear();
+    return formattedlastdate;
+}
 window.onload = function () {
     getJSON(DATAFILES.EPIDEMICSTATUS, function (err, dataJson) {
         if (err != null) {
             alert('Something went wrong: ' + err);
         } else {
+            document.getElementById("fechaActualizacion").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
+            document.getElementById("positivos").innerHTML = dashboard(dataJson, 'totalPositiveCount');
+            document.getElementById("actualizadoPositivos").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
+            document.getElementById("fallecidos").innerHTML = dashboard(dataJson, 'deceasedCount');
+            document.getElementById("actualizadoR0").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
+            document.getElementById("r0").innerHTML = dashboard(dataJson, 'r0');
+            document.getElementById("actualizadoFallecidos").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
             document.getElementById("tests").innerHTML = dashboard(dataJson, 'pcrTestCount');
             document.getElementById("testsRapidos").innerHTML = dashboard(dataJson, 'serologyTestCount');
             document.getElementById("personasUnicasPcr").innerHTML = dashboard(dataJson, 'pcrUniquePersonCount');
             document.getElementById("hospitalizaciones").innerHTML = dashboard(dataJson, 'newHospitalAdmissionsWithPCRCount');
             document.getElementById("hospitalizadosUci").innerHTML = dashboard(dataJson, 'icuPeopleCount');
             document.getElementById("altasHospitalarias").innerHTML = dashboard(dataJson, 'hospitalReleasedCount');
-
-            document.getElementById("positivos").innerHTML = dashboard(dataJson, 'totalPositiveCount');
-            let lastdatePositivos = new Date(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
-            let formattedlastdatePositivos = lastdatePositivos.getDate() + "-" + (lastdatePositivos.getMonth() + 1) + "-" + lastdatePositivos.getFullYear();
-            document.getElementById("actualizadoPositivos").innerHTML += formattedlastdatePositivos;
-
-            document.getElementById("fallecidos").innerHTML = dashboard(dataJson, 'deceasedCount');
-            let lastdateFallecidos = new Date(dataJson.deceasedCountByDate[dataJson.deceasedCountByDate.length - 1].date);
-            let formattedLastdateFallecidos = lastdateFallecidos.getDate() + "-" + (lastdateFallecidos.getMonth() + 1) + "-" + lastdateFallecidos.getFullYear();
-            document.getElementById("actualizadoFallecidos").innerHTML += formattedLastdateFallecidos;
-
-            document.getElementById("r0").innerHTML = dashboard(dataJson, 'r0');
-            let lastdateR0 = new Date(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
-            let formattedlastdateR0 = lastdateR0.getDate() + "-" + (lastdateR0.getMonth() + 1) + "-" + lastdateR0.getFullYear();
-            document.getElementById("actualizadoR0").innerHTML += formattedlastdateR0;
-
-            document.getElementById("hospitalizaciones").innerHTML = dashboard(dataJson, 'newHospitalAdmissionsWithPCRCount');
 
             google.charts.load('current', { 'packages': ['line'] });
             google.charts.setOnLoadCallback(drawChart);
@@ -268,6 +263,7 @@ window.onload = function () {
             ).then(
                 data => addGeoLayer2(data)
             )
+            document.getElementById("fechaActualizacionMapa").innerHTML += updated(dataJson.byDateByMunicipality[0].date); + '.';
         }
     });
 

@@ -24,11 +24,18 @@ var getJSON = function (url, callback) {
     };
     xhr.send();
 };
+function updated(jsonData) {
+    let lastdate = new Date(jsonData);
+    let formattedlastdate = lastdate.getDate() + "/" + (lastdate.getMonth() + 1) + "/" + lastdate.getFullYear();
+    return formattedlastdate;
+}
 window.onload = function () {
     getJSON(DATAFILES.DECEASEDPEOPLECOUNT, function (err, dataJson) {
         if (err != null) {
             alert('Something went wrong: ' + err);
         } else {
+            document.getElementById("fechaActualizacion").innerHTML += updated(dataJson.byDate[dataJson.byDate.length - 1].date);
+
             google.charts.load('current', { 'packages': ['line'] });
             google.charts.setOnLoadCallback(drawChart);
 

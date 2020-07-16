@@ -24,12 +24,20 @@ var getJSON = function (url, callback) {
     };
     xhr.send();
 };
+
+function updated(jsonData) {
+    let lastdate = new Date(jsonData);
+    let formattedlastdate = lastdate.getDate() + "/" + (lastdate.getMonth() + 1) + "/" + lastdate.getFullYear();
+    return formattedlastdate;
+}
 window.onload = function () {
 
     getJSON(DATAFILES.BYAGE, function (err, dataJson) {
         if (err != null) {
             alert('Something went wrong: ' + err);
         } else {
+            document.getElementById("fechaActualizacion").innerHTML += updated(dataJson.lastUpdateDate);
+
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawSeriesChart);
 
