@@ -54,11 +54,11 @@ window.onload = function () {
             document.getElementById("r0").innerHTML = dashboard(dataJson, 'r0');
             document.getElementById("actualizadoFallecidos").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
             document.getElementById("tests").innerHTML = dashboard(dataJson, 'pcrTestCount');
-            document.getElementById("testsRapidos").innerHTML = dashboard(dataJson, 'serologyTestCount');
-            document.getElementById("personasUnicasPcr").innerHTML = dashboard(dataJson, 'pcrUniquePersonCount');
             document.getElementById("hospitalizaciones").innerHTML = dashboard(dataJson, 'newHospitalAdmissionsWithPCRCount');
             document.getElementById("hospitalizadosUci").innerHTML = dashboard(dataJson, 'icuPeopleCount');
-            document.getElementById("altasHospitalarias").innerHTML = dashboard(dataJson, 'hospitalReleasedCount');
+            document.getElementById("positivosAraba").innerHTML = dashboard(dataJson, 'pcrPositiveCountAraba');
+            document.getElementById("positivosBizkaia").innerHTML = dashboard(dataJson, 'pcrPositiveCountBizkaia');
+            document.getElementById("positivosGipuzkoa").innerHTML = dashboard(dataJson, 'pcrPositiveCountGipuzkoa');
 
             google.charts.load('current', { 'packages': ['line'] });
             google.charts.setOnLoadCallback(drawChart);
