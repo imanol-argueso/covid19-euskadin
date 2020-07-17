@@ -101,7 +101,7 @@ window.onload = function () {
                 geojsonLayer = L.geoJson(data, {
                     onEachFeature: function (feature, layer) {
                         let objetoAFiltrar = dataJson.byDateByMunicipality[0].items;
-                        let positivos = objetoAFiltrar.filter(element => '' + element.geoMunicipality.countyId.id + element.geoMunicipality.oid.id === '' + feature.properties.EUSTAT);
+                        let positivos = objetoAFiltrar.filter(element => '' + element.geoMunicipality.countyId + element.geoMunicipality.oid === '' + feature.properties.EUSTAT);
 
                         if (positivos.length !== 0) {
                             layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + popupInfo);
@@ -199,7 +199,7 @@ window.onload = function () {
                 geojsonLayer2 = L.geoJson(data, {
                     onEachFeature: function (feature, layer) {
                         let objetoAFiltrar = dataJson.byDateByMunicipality[0].items;
-                        let positivos = objetoAFiltrar.filter(element => '' + element.geoMunicipality.countyId.id + element.geoMunicipality.oid.id === '' + feature.properties.EUSTAT);
+                        let positivos = objetoAFiltrar.filter(element => '' + element.geoMunicipality.countyId + element.geoMunicipality.oid === '' + feature.properties.EUSTAT);
 
                         if (positivos.length !== 0) {
                             layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].mortalityRate + popupInfo2);

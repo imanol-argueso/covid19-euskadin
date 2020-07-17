@@ -47,7 +47,7 @@ window.onload = function () {
             alert('Something went wrong: ' + err);
         } else {
             document.getElementById("fechaActualizacion").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
-            document.getElementById("positivos").innerHTML = dashboard(dataJson, 'totalPositiveCount');
+            document.getElementById("positivos").innerHTML = dashboard(dataJson, 'pcrPositiveCount');
             document.getElementById("actualizadoPositivos").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
             document.getElementById("fallecidos").innerHTML = dashboard(dataJson, 'deceasedCount');
             document.getElementById("actualizadoR0").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
@@ -230,7 +230,7 @@ window.onload = function () {
                 geojsonLayer2 = L.geoJson(data, {
                     onEachFeature: function (feature, layer) {
                         let objetoAFiltrar = dataJson.byDateByMunicipality[0].items;
-                        let positivos = objetoAFiltrar.filter(element => '' + element.geoMunicipality.countyId.id + element.geoMunicipality.oid.id === '' + feature.properties.EUSTAT);
+                        let positivos = objetoAFiltrar.filter(element => '' + element.geoMunicipality.countyId + element.geoMunicipality.oid === '' + feature.properties.EUSTAT);
 
                         if (positivos.length !== 0) {
                             layer.bindPopup(feature.properties.NOMBRE_EUS + ': ' + positivos[0].positiveBy100ThousandPeopleRate + popupInfo);

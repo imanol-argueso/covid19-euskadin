@@ -1,2 +1,8 @@
 node_modules
 src/hearthstone
+.cache/
+dist/
+.env
+.DS_Store
+coverage/
+.vscode/
