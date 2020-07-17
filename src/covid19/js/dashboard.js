@@ -41,6 +41,15 @@ function updated(jsonData) {
     let formattedlastdate = lastdate.getDate() + "/" + (lastdate.getMonth() + 1) + "/" + lastdate.getFullYear();
     return formattedlastdate;
 }
+getJSON(DATAFILES.DECEASEDPEOPLECOUNT, function (err, dataJson) {
+    if (err != null) {
+        alert('Something went wrong: ' + err);
+    } else {
+        document.getElementById("actualizadoFallecidos").innerHTML += updated(dataJson.byDate[dataJson.byDate.length - 1].date);
+        document.getElementById("fallecidos").innerHTML = dashboard(dataJson, 'deceasedCount');
+    }
+});
+
 window.onload = function () {
     getJSON(DATAFILES.EPIDEMICSTATUS, function (err, dataJson) {
         if (err != null) {
@@ -49,10 +58,10 @@ window.onload = function () {
             document.getElementById("fechaActualizacion").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
             document.getElementById("positivos").innerHTML = dashboard(dataJson, 'pcrPositiveCount');
             document.getElementById("actualizadoPositivos").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
-            document.getElementById("fallecidos").innerHTML = dashboard(dataJson, 'deceasedCount');
+            //document.getElementById("fallecidos").innerHTML = dashboard(dataJson, 'deceasedCount');
             document.getElementById("actualizadoR0").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
             document.getElementById("r0").innerHTML = dashboard(dataJson, 'r0');
-            document.getElementById("actualizadoFallecidos").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
+            //document.getElementById("actualizadoFallecidos").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
             document.getElementById("tests").innerHTML = dashboard(dataJson, 'pcrTestCount');
             document.getElementById("hospitalizaciones").innerHTML = dashboard(dataJson, 'newHospitalAdmissionsWithPCRCount');
             document.getElementById("hospitalizadosUci").innerHTML = dashboard(dataJson, 'icuPeopleCount');
