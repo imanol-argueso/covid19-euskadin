@@ -58,7 +58,7 @@ window.onload = function () {
                 maxZoom: 18,
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map)
-            let geojson_url = "../maps/zonas_salud_latlon.geojson";
+            let geojson_url = "../maps/zonas_salud_latlon_test.geojson";
             function getColor(d) {
                 return d > 1700 ? '#800026' :
                     d > 1400 ? '#BD0026' :
@@ -100,10 +100,10 @@ window.onload = function () {
                 geojsonLayer = L.geoJson(data, {
                     onEachFeature: function (feature, layer) {
                         let objetoAFiltrar = dataJson.dataByDateByHealthZone[0].items;
-                        let positivos = objetoAFiltrar.filter(element => '' + element.healthZone.healthZoneId === feature.properties.ZON_Cod);
+                        let positivos = objetoAFiltrar.filter(element => element.healthZone.healthZoneId === Feature.properties.ZON_Cod);
 
                         if (positivos.length !== 0) {
-                            layer.bindPopup(feature.properties.ZONA_Nom + ': ' + positivos[0].positiveBy100ThousandPeopleRate + popupInfo);
+                            layer.bindPopup(Feature.properties.ZONA_Nom + ': ' + positivos[0].positiveBy100ThousandPeopleRate + popupInfo);
                             layer.setStyle(style(positivos[0].positiveBy100ThousandPeopleRate));
                         } else {
                             layer.bindPopup(popupNoData);
