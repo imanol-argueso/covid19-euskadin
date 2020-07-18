@@ -294,7 +294,6 @@ window.onload = function () {
                     data.addColumn('number', 'Letalidad');
                 }
                 for (let element of dataJson.byDateByMunicipality[0].items) {
-
                     data.addRow([element.geoMunicipality.officialName, element.population, element.totalPositiveCount, element.positiveBy100ThousandPeopleRate, element.totalDeceasedCount, element.mortalityRate]);
                 }
                 var table = new google.visualization.Table(document.getElementById('table_div9'));

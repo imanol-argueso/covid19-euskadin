@@ -30,6 +30,7 @@ function updated(jsonData) {
     return formattedlastdate;
 }
 window.onload = function () {
+
     getJSON(DATAFILES.BYHEALTHZONE, function (err, dataJson) {
         if (err != null) {
             alert('Something went wrong: ' + err);
@@ -45,12 +46,12 @@ window.onload = function () {
                 popupInfo = ' positibo 100.000 biztanleko';
                 popupNoData = 'Ez dago positiborik.';
                 title = 'Positiboak';
-                titleParagraph = 'Euskadiko udalerrietan duten 100.000 biztanleko positiboen tasa.';
+                titleParagraph = 'Euskadiko osasun eremuetan duten 100.000 biztanleko positiboen tasa.';
             } else {
                 popupInfo = ' positivos por 100.000 hab.';
                 popupNoData = 'No hay positivos.';
                 title = 'Positivos';
-                titleParagraph = 'Tasa de positivos por 100.000 habitantes en cada municipio.';
+                titleParagraph = 'Tasa de positivos por 100.000 habitantes en cada zona de salud.';
             }
 
             let map = L.map('map')
@@ -58,7 +59,7 @@ window.onload = function () {
                 maxZoom: 18,
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map)
-            let geojson_url = "../maps/zonas_salud_latlon_test.geojson";
+            let geojson_url = "../maps/osasun_eremuak_2018_latlon.json";
             function getColor(d) {
                 return d > 1700 ? '#800026' :
                     d > 1400 ? '#BD0026' :
@@ -100,10 +101,10 @@ window.onload = function () {
                 geojsonLayer = L.geoJson(data, {
                     onEachFeature: function (feature, layer) {
                         let objetoAFiltrar = dataJson.dataByDateByHealthZone[0].items;
-                        let positivos = objetoAFiltrar.filter(element => element.healthZone.healthZoneId === Feature.properties.ZON_Cod);
+                        let positivos = objetoAFiltrar.filter(element => element.healthZone.healthZoneId === feature.properties.ZON_Cod);
 
                         if (positivos.length !== 0) {
-                            layer.bindPopup(Feature.properties.ZONA_Nom + ': ' + positivos[0].positiveBy100ThousandPeopleRate + popupInfo);
+                            layer.bindPopup(feature.properties.ZONA_Nom + ': ' + positivos[0].positiveBy100ThousandPeopleRate + popupInfo);
                             layer.setStyle(style(positivos[0].positiveBy100ThousandPeopleRate));
                         } else {
                             layer.bindPopup(popupNoData);
@@ -171,6 +172,7 @@ window.onload = function () {
                 var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div3'));
                 chart.draw(data, options);
             }
+
             google.charts.load('current', { 'packages': ['table'] });
             google.charts.setOnLoadCallback(drawTable);
             function drawTable() {
@@ -196,7 +198,6 @@ window.onload = function () {
                 var table = new google.visualization.Table(document.getElementById('table_div10'));
                 table.draw(data, { showRowNumber: true, sortColumn: 2, sortAscending: false, width: '100%', height: 'auto' });
             }
-
         }
     });
 }
