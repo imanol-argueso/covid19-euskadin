@@ -136,6 +136,106 @@ window.onload = function () {
                 data => addGeoLayer(data)
             )
 
+
+            var popupInfo2;
+            var popupNoData2;
+            var title2;
+            var titleParagraph2;
+            if (window.location.href.indexOf("/eu/") > -1) {
+                popupInfo2 = '(%)-eko hilgarritasuna';
+                popupNoData2 = 'Ez dago daturik.';
+                title2 = 'Hilgarritasuna';
+                titleParagraph2 = 'Pandemiaren hasieratik Euskadiko osasun eremuetan izandako hilgarritasuna.';
+            } else {
+                popupInfo2 = '% de letalidad';
+                popupNoData2 = 'No hay datos.';
+                title2 = 'Letalidad';
+                titleParagraph2 = 'Letalidad en las zonas de salud de Euskadi desde el inicio de la pandemia.';
+            }
+
+            let map2 = L.map('map2')
+            L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map2)
+            //let geojson_url2 = "./maps/osasun_eremuak_2018_latlon.json";
+            function getColor2(d) {
+                return d > 20 ? '#800026' :
+                    d > 16 ? '#BD0026' :
+                        d > 13 ? '#E31A1C' :
+                            d > 10 ? '#FC4E2A' :
+                                d > 7 ? '#FD8D3C' :
+                                    d > 5 ? '#FEB24C' :
+                                        d > 3 ? '#FED976' :
+                                            d > 0 ? '#FFEDA0' :
+                                                'white'
+            }
+            function style2(dataValue) {
+                return {
+                    fillColor: getColor2(dataValue),
+                    weight: 1,
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                };
+            }
+            //Leyenda con los rangos
+            var legend2 = L.control({ position: 'bottomright' });
+
+            legend2.onAdd = function (map2) {
+
+                var div = L.DomUtil.create('div', 'info legend'),
+                    grades = [0, 3, 5, 7, 10, 13, 16, 20],
+                    labels = [];
+                for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor2(grades[i] + 1) + '"></i> ' +
+                        grades[i] + (grades[i + 1] ? '%&ndash;' + grades[i + 1] + '%<br>' : '% +');
+                }
+
+                return div;
+            };
+            legend2.addTo(map2);
+            var geojsonLayer2;
+            let addGeoLayer2 = (data) => {
+                geojsonLayer2 = L.geoJson(data, {
+                    onEachFeature: function (feature, layer) {
+                        let objetoAFiltrar = dataJson.dataByDateByHealthZone[0].items;
+                        let positivos = objetoAFiltrar.filter(element => element.healthZone.healthZoneId === feature.properties.ZON_Cod);
+
+                        if (positivos.length !== 0) {
+                            layer.bindPopup(feature.properties.ZONA_Nom + ': ' + positivos[0].mortalityRate + popupInfo2);
+                            layer.setStyle(style2(positivos[0].mortalityRate));
+                        } else {
+                            layer.bindPopup(popupNoData2);
+                            layer.setStyle(style2(0));
+                        }
+                    },
+                }).addTo(map2)
+                map2.fitBounds(geojsonLayer2.getBounds())
+            }
+
+            //Añadimos la capa de info
+            var info2 = L.control();
+
+            info2.onAdd = function (map2) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+
+            info2.update = function () {
+                this._div.innerHTML = '<h4>' + title2 + '</h4><p class="info_p">' + titleParagraph2 + '</p>';
+            };
+            info2.addTo(map2);
+            fetch(
+                geojson_url
+            ).then(
+                res => res.json()
+            ).then(
+                data => addGeoLayer2(data)
+            )
+
+
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawSeriesChart);
 

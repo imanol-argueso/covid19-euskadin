@@ -70,7 +70,11 @@ window.onload = function () {
 
                 }
                 for (let element of dataJson.byDate) {
-                    if (element.pcrUniquePersonCount == 0) {
+                    if (element.pcrUniquePersonCount == 0 && element.serologyTestCount == 0) {
+                        data.addRow([new Date(element.date), element.pcrTestCount, null, null]);
+                    } else if (element.serologyTestCount == 0) {
+                        data.addRow([new Date(element.date), element.pcrTestCount, null, element.pcrUniquePersonCount]);
+                    } else if (element.pcrUniquePersonCount == 0) {
                         data.addRow([new Date(element.date), element.pcrTestCount, element.serologyTestCount, null]);
                     } else {
                         data.addRow([new Date(element.date), element.pcrTestCount, element.serologyTestCount, element.pcrUniquePersonCount]);
