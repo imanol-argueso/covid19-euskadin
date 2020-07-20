@@ -159,13 +159,13 @@ window.onload = function () {
             }).addTo(map2)
             //let geojson_url2 = "./maps/municipios_latlon.json";
             function getColor2(d) {
-                return d > 40 ? '#800026' :
-                    d > 30 ? '#BD0026' :
-                        d > 20 ? '#E31A1C' :
-                            d > 16 ? '#FC4E2A' :
-                                d > 12 ? '#FD8D3C' :
-                                    d > 8 ? '#FEB24C' :
-                                        d > 4 ? '#FED976' :
+                return d > 20 ? '#800026' :
+                    d > 16 ? '#BD0026' :
+                        d > 13 ? '#E31A1C' :
+                            d > 10 ? '#FC4E2A' :
+                                d > 7 ? '#FD8D3C' :
+                                    d > 5 ? '#FEB24C' :
+                                        d > 3 ? '#FED976' :
                                             d > 0 ? '#FFEDA0' :
                                                 'white'
             }
@@ -183,7 +183,7 @@ window.onload = function () {
             legend2.onAdd = function (map2) {
 
                 var div = L.DomUtil.create('div', 'info legend'),
-                    grades = [0, 4, 8, 12, 16, 20, 30, 40],
+                    grades = [0, 3, 5, 7, 10, 13, 16, 20],
                     labels = [];
                 for (var i = 0; i < grades.length; i++) {
                     div.innerHTML +=
