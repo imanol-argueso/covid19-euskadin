@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Positiboak eta hildakoak sexuaren arabera</title>
+    <title>Osakidetzako ospitaleen egoeraren bilakaera</title>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141364393-2"></script>
@@ -20,6 +20,7 @@
 
         gtag('config', 'UA-141364393-2');
     </script>
+
 </head>
 
 <body>
@@ -34,7 +35,7 @@
                 <span class="nav-no-link">eu</span>
             </li>
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="../es/positivos-fallecidos-letalidad-por-sexo.html">es</a>
+                <a class="nav-link" href="../es/hospitales.html">es</a>
             </li>
         </ul>
     </nav>
@@ -80,8 +81,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active"
-                                href="./sexuaren-araberako-positiboak-hildakoak-hilgarritasuna.html">
+                            <a class="nav-link" href="./sexuaren-araberako-positiboak-hildakoak-hilgarritasuna.html">
                                 <i class="fas fa-venus-mars"></i>
                                 Sexuaren arabera
                             </a>
@@ -101,7 +101,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./ospitaleak.html">
+                            <a class="nav-link active" href="./ospitaleak.html">
                                 <i class="far fa-hospital"></i>
                                 Ospitaleak
                             </a>
@@ -112,24 +112,28 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Positiboak eta hildakoak sexuaren arabera</h1>
+                    <h1 class="h2">Ospitaleen egoera</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <a href="whatsapp://send?text=Positivos y fallecidos por sexo en Euskadi - https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-letalidad-por-sexo.html"
+                            <a href="whatsapp://send?text=Euskadin koronabirusagatik izandako kasu positiboen bilakaera - https://covid19-euskadin.herokuapp.com/eu/positiboak.html"
                                 data-action="share/whatsapp/share" class="btn btn-sm btn-outline-secondary">
                                 <i class="fab fa-whatsapp"></i>Whatsapp</a>
 
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-letalidad-por-sexo.html"
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://covid19-euskadin.herokuapp.com/eu/positiboak.html"
                                 class="btn btn-sm btn-outline-secondary"><i class="fab fa-facebook-f"></i>Facebook</a>
-                            <a href="http://twitter.com/share?text=Positivos y fallecidos por sexo en Euskadi&url=https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-letalidad-por-sexo.html&hashtags=covid19,opendata"
+                            <a href="http://twitter.com/share?text=Euskadin koronabirusagatik izandako kasu positiboen bilakaera&url=https://covid19-euskadin.herokuapp.com/eu/positiboak.html/&hashtags=covid19,opendata"
                                 class="btn btn-sm btn-outline-secondary"><i class="fab fa-twitter"></i>Twitter</a>
                         </div>
                     </div>
                 </div>
-                <p>Positiboak eta hilgarritasuna sexuaren arabera duten eragina.</p>
+
+                <p>Covid-19aren ondorioz plantan eta ZIUn ingresatutako paziente kopuruaren bilakaera Osakidetzako
+                    osptitaleetan.
+                </p>
 
                 <div id="fechaActualizacion" class="fechaActualizacionContent">Eusko Jaurlaritzak datu hauek eguneratu
                     dituen azken eguna: </div>
+
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
@@ -143,11 +147,10 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
-                        <div id="columnchart_material"></div>
-                        <div id="columnchart_material2"></div>
+                        <div id="linechart_material8"></div>
                     </div>
                     <div class="tab-pane fade" id="data" role="tabpanel" aria-labelledby="data-tab">
-                        <div id="table_div7"></div>
+                        <div class="table-responsive" id="table_div"></div>
                     </div>
                 </div>
             </main>
@@ -168,7 +171,8 @@
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-    <script src="../js/by-gender.js"></script>
+    <script src="../js/by-hospital.js"></script>
+
 </body>
 
 </html>

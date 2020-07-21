@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="eu">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -9,10 +9,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Positiboak eta hildakoak sexuaren arabera</title>
+    <title>Evolución de la situación de los hospitales de Osakidetza (Servicio Vasco de Salud)</title>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141364393-2"></script>
+
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
@@ -20,21 +21,22 @@
 
         gtag('config', 'UA-141364393-2');
     </script>
+
 </head>
 
 <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="./index-eu.html">Covid-19a Euskadin</a>
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="../index.html">Covid-19 en Euskadi</a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
             data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <ul class="navbar-nav px-3 languages">
             <li class="nav-item text-nowrap">
-                <span class="nav-no-link">eu</span>
+                <a class="nav-link" href="../eu/ospitaleak.html">eu</a>
             </li>
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="../es/positivos-fallecidos-letalidad-por-sexo.html">es</a>
+                <span class="nav-no-link">es</span>
             </li>
         </ul>
     </nav>
@@ -44,66 +46,63 @@
                 <div class="sidebar-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="./index-eu.html">
+                            <a class="nav-link" href="../index.html">
                                 <i class="fas fa-home"></i>
-                                Hasiera
+                                Inicio
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./positiboak.html">
+                            <a class="nav-link" href="./positivos.html">
                                 <i class="fas fa-user-plus"></i>
-                                Positiboak
+                                Positivos
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./biderkatze-zenbakia-euskadin.html">
+                            <a class="nav-link" href="./numero-reproduccion-euskadi.html">
                                 <i class="fas fa-viruses"></i>
-                                Biderkatze zenbakia (R0)
+                                Número de Reproducción (R0)
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./hildakoak.html">
+                            <a class="nav-link" href="./fallecidos.html">
                                 <i class="fas fa-procedures"></i>
-                                Hildakoak
+                                Fallecidos
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./testak.html">
+                            <a class="nav-link" href="./tests.html">
                                 <i class="fas fa-vial"></i>
-                                Egindako testak
+                                Test realizados
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./adinaren-araberako-positiboak-hildakoak-hilgarritasuna.html">
+                            <a class="nav-link" href="./positivos-fallecidos-letalidad-por-edad.html">
                                 <i class="fas fa-baby"></i>
-                                Adinaren arabera
+                                Por edad
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active"
-                                href="./sexuaren-araberako-positiboak-hildakoak-hilgarritasuna.html">
+                            <a class="nav-link" href="./positivos-fallecidos-letalidad-por-sexo.html">
                                 <i class="fas fa-venus-mars"></i>
-                                Sexuaren arabera
+                                Por sexo
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"
-                                href="./udalerriaren-araberako-positiboak-hildakoak-hilgarritasuna.html">
+                            <a class="nav-link" href="./positivos-fallecidos-por-municipio.html">
                                 <i class="far fa-building"></i>
-                                Udalerriak
+                                Por municipio
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"
-                                href="./osasun-eremuaren-araberako-positiboak-hildakoak-hilgarritasuna.html">
+                            <a class="nav-link" href="./positivos-fallecidos-por-zona-salud.html">
                                 <i class="fas fa-clinic-medical"></i>
-                                Osasun eremuak
+                                Por zona salud
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./ospitaleak.html">
+                            <a class="nav-link active" href="./hospitales.html">
                                 <i class="far fa-hospital"></i>
-                                Ospitaleak
+                                Por hospital
                             </a>
                         </li>
                     </ul>
@@ -112,42 +111,43 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Positiboak eta hildakoak sexuaren arabera</h1>
+                    <h1 class="h2">Situación de los hospitales</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <a href="whatsapp://send?text=Positivos y fallecidos por sexo en Euskadi - https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-letalidad-por-sexo.html"
+                            <a href="whatsapp://send?text=Evolución de los casos positivos por el coronavirus en Euskadi - https://covid19-euskadin.herokuapp.com/es/positivos.html"
                                 data-action="share/whatsapp/share" class="btn btn-sm btn-outline-secondary">
                                 <i class="fab fa-whatsapp"></i>Whatsapp</a>
 
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-letalidad-por-sexo.html"
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://covid19-euskadin.herokuapp.com/eu/hildakoak.html"
                                 class="btn btn-sm btn-outline-secondary"><i class="fab fa-facebook-f"></i>Facebook</a>
-                            <a href="http://twitter.com/share?text=Positivos y fallecidos por sexo en Euskadi&url=https://covid19-euskadin.herokuapp.com/es/positivos-fallecidos-letalidad-por-sexo.html&hashtags=covid19,opendata"
+                            <a href="http://twitter.com/share?text=Evolución de los casos positivos por el coronavirus en Euskadi&url=https://covid19-euskadin.herokuapp.com/es/positivos.html/&hashtags=covid19,opendata"
                                 class="btn btn-sm btn-outline-secondary"><i class="fab fa-twitter"></i>Twitter</a>
                         </div>
                     </div>
                 </div>
-                <p>Positiboak eta hilgarritasuna sexuaren arabera duten eragina.</p>
+                <p>Evolución del número de pacientes ingresados en planta y en UCI con motivo del covid-19 en los
+                    hospitales de Osakidetza
+                    (Servico Vasco de Salud).</p>
 
-                <div id="fechaActualizacion" class="fechaActualizacionContent">Eusko Jaurlaritzak datu hauek eguneratu
-                    dituen azken eguna: </div>
+                <div id="fechaActualizacion" class="fechaActualizacionContent">El Gobierno Vasco ha actualizado estos
+                    datos el </div>
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="graphs-tab" data-toggle="tab" href="#graphs" role="tab"
-                            aria-controls="graphs" aria-selected="true">Grafikoak</a>
+                            aria-controls="graphs" aria-selected="true">Gráficos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data"
-                            aria-selected="false">Datuak</a>
+                            aria-selected="false">Datos</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
-                        <div id="columnchart_material"></div>
-                        <div id="columnchart_material2"></div>
+                        <div id="linechart_material8"></div>
                     </div>
                     <div class="tab-pane fade" id="data" role="tabpanel" aria-labelledby="data-tab">
-                        <div id="table_div7"></div>
+                        <div class="table-responsive" id="table_div"></div>
                     </div>
                 </div>
             </main>
@@ -156,7 +156,7 @@
     <footer class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow footer">
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="./webguneari-buruz.html">Webguneari buruz</a>
+                <a class="nav-link" href="./sobre-esta-web.html">Sobre esta web</a>
             </li>
         </ul>
     </footer>
@@ -168,7 +168,8 @@
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-    <script src="../js/by-gender.js"></script>
+    <script src="../js/by-hospital.js"></script>
+
 </body>
 
 </html>
