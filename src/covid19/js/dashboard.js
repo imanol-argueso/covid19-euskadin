@@ -36,6 +36,16 @@ function dashboard(jsonData, jsonDataId) {
     };
     return (today) + ' (' + format(increment) + ')';
 }
+
+function dashboardHospital(jsonData, jsonDataId) {
+    let today = jsonData.byDate[jsonData.byDate.length - 1].totals[jsonDataId];
+    let yesterday = jsonData.byDate[jsonData.byDate.length - 2].totals[jsonDataId];
+    let increment = (today - yesterday);
+    if (Math.floor(increment) !== increment) {
+        increment = increment.toFixed(2);
+    };
+    return (today) + ' (' + format(increment) + ')';
+}
 function updated(jsonData) {
     let lastdate = new Date(jsonData);
     let formattedlastdate = lastdate.getDate() + "/" + (lastdate.getMonth() + 1) + "/" + lastdate.getFullYear();
@@ -49,7 +59,74 @@ getJSON(DATAFILES.DECEASEDPEOPLECOUNT, function (err, dataJson) {
         document.getElementById("fallecidos").innerHTML = dashboard(dataJson, 'deceasedCount');
     }
 });
+getJSON(DATAFILES.BYHOSPITAL, function (err, dataJson) {
+    if (err != null) {
+        alert('Something went wrong: ' + err);
+    } else {
+        document.getElementById("actualizadoicuPeopleCount").innerHTML += updated(dataJson.byDate[dataJson.byDate.length - 1].date);
+        document.getElementById("actualizadohospitalReleasedCount").innerHTML += updated(dataJson.byDate[dataJson.byDate.length - 1].date);
+        document.getElementById("hospitalizaciones").innerHTML = dashboardHospital(dataJson, 'floorPeopleCount');
+        document.getElementById("hospitalizadosUci").innerHTML = dashboardHospital(dataJson, 'icuPeopleCount');
 
+        google.charts.load('current', { 'packages': ['line'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', '');
+            if (window.location.href.indexOf("/eu/") > -1) {
+                data.addColumn('number', 'ZIUn ingresatutakoak');
+            } else {
+                data.addColumn('number', 'Ingresados en UCI');
+            }
+            for (let element of dataJson.byDate) {
+                //if (element.date > '2020-03-07T22:00:00Z') {
+                data.addRow([new Date(element.date), element.totals.icuPeopleCount]);
+                //}
+            }
+            var options = {
+                legend: { position: 'none' },
+                hAxis: { format: 'M/d/yy' },
+                colors: ['#6c757d'],
+                curveType: 'function',
+                width: 297,
+                height: 197
+            };
+            var chart = new google.charts.Line(document.getElementById('linechart_material_mini5'));
+            chart.draw(data, google.charts.Line.convertOptions(options));
+        }
+
+        google.charts.setOnLoadCallback(drawChart2);
+
+        function drawChart2() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', '');
+            if (window.location.href.indexOf("/eu/") > -1) {
+                data.addColumn('number', 'Plantan ingresatutakoak');
+            } else {
+                data.addColumn('number', 'Ingresados en planta con PCR positivo');
+            }
+            for (let element of dataJson.byDate) {
+                //if (element.date > '2020-03-07T22:00:00Z') {
+                data.addRow([new Date(element.date), element.totals.floorPeopleCount]);
+                //}
+            }
+            var options = {
+                legend: { position: 'none' },
+                hAxis: { format: 'M/d/yy' },
+                colors: ['#6c757d'],
+                curveType: 'function',
+                width: 297,
+                height: 197
+            };
+            var chart2 = new google.charts.Line(document.getElementById('linechart_material_mini6'));
+            chart2.draw(data, google.charts.Line.convertOptions(options));
+        }
+
+    }
+});
 window.onload = function () {
     getJSON(DATAFILES.EPIDEMICSTATUS, function (err, dataJson) {
         if (err != null) {
@@ -58,13 +135,10 @@ window.onload = function () {
             document.getElementById("fechaActualizacion").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
             document.getElementById("positivos").innerHTML = dashboard(dataJson, 'pcrPositiveCount');
             document.getElementById("actualizadoPositivos").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
-            //document.getElementById("fallecidos").innerHTML = dashboard(dataJson, 'deceasedCount');
             document.getElementById("actualizadoR0").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
             document.getElementById("r0").innerHTML = dashboard(dataJson, 'r0');
-            //document.getElementById("actualizadoFallecidos").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
             document.getElementById("tests").innerHTML = dashboard(dataJson, 'pcrTestCount');
-            document.getElementById("hospitalizaciones").innerHTML = dashboard(dataJson, 'newHospitalAdmissionsWithPCRCount');
-            document.getElementById("hospitalizadosUci").innerHTML = dashboard(dataJson, 'icuPeopleCount');
+            document.getElementById("actualizadoPcrTestCount").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
             document.getElementById("positivosAraba").innerHTML = dashboard(dataJson, 'pcrPositiveCountAraba');
             document.getElementById("positivosBizkaia").innerHTML = dashboard(dataJson, 'pcrPositiveCountBizkaia');
             document.getElementById("positivosGipuzkoa").innerHTML = dashboard(dataJson, 'pcrPositiveCountGipuzkoa');
@@ -96,6 +170,34 @@ window.onload = function () {
                 };
                 var chart = new google.charts.Line(document.getElementById('linechart_material_mini3'));
                 chart.draw(data, google.charts.Line.convertOptions(options));
+            }
+
+            google.charts.setOnLoadCallback(drawChart2);
+
+            function drawChart2() {
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('date', '');
+                if (window.location.href.indexOf("/eu/") > -1) {
+                    data.addColumn('number', 'Test PCR realizados en total');
+                } else {
+                    data.addColumn('number', 'Guztira egindako PCR testk');
+                }
+                for (let element of dataJson.byDate) {
+                    //if (element.date > '2020-03-07T22:00:00Z') {
+                    data.addRow([new Date(element.date), element.pcrTestCount]);
+                    //}
+                }
+                var options = {
+                    legend: { position: 'none' },
+                    hAxis: { format: 'M/d/yy' },
+                    colors: ['#6c757d'],
+                    curveType: 'function',
+                    width: 297,
+                    height: 197
+                };
+                var chart2 = new google.charts.Line(document.getElementById('linechart_material_mini4'));
+                chart2.draw(data, google.charts.Line.convertOptions(options));
             }
         }
     });

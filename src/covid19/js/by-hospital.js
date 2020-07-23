@@ -52,7 +52,7 @@ window.onload = function () {
                     data.addColumn('number', 'Osakidetzako ospitaletan hildakoak');
                     var options = {
                         chart: {
-                            title: 'Osakidetzako ospitaleetako egoera',
+                            title: 'Osakidetzako ospitaleetako egoera orokorra',
                             subtitle: 'Plantan eta ZIUn ingresatutako paziente eta hildakoen bilakaera.',
                         },
                         hAxis: { format: 'yy/M/d' },
@@ -66,7 +66,7 @@ window.onload = function () {
                     data.addColumn('number', 'Fallecidos en hospitales de Osakidetza');
                     var options = {
                         chart: {
-                            title: 'Situación de los hospitales de Osakidetza (Servicio Vasco de Salud)',
+                            title: 'Situación global en los hospitales de Osakidetza (Servicio Vasco de Salud)',
                             subtitle: 'Evolución de los pacientes ingresados en planta y UCI, así como de los fallecidos.',
                         },
                         hAxis: { format: 'M/d/yy' },
@@ -80,7 +80,69 @@ window.onload = function () {
                 }
                 var chart = new google.charts.Line(document.getElementById('linechart_material8'));
                 chart.draw(data, google.charts.Line.convertOptions(options));
+
             }
+
+            google.charts.load('current', { 'packages': ['bar'] });
+            google.charts.setOnLoadCallback(drawStuff);
+
+            function drawStuff() {
+                var data = new google.visualization.DataTable();
+                if (window.location.href.indexOf("/eu/") > -1) {
+                    data.addColumn('string', 'Ospitaleak');
+                    data.addColumn('number', 'Plantan ingresatuta');
+                    data.addColumn('number', 'ZIUn ingresatuta');
+                    for (let element of dataJson.byDate[dataJson.byDate.length - 1].byHospital) {
+                        data.addRow([element.hospital, element.floorPeopleCount, element.icuPeopleCount]);
+                    }
+                    var options = {
+                        width: 800,
+                        chart: {
+                            title: 'Osakidetzako ospitale bakoitzaren egoera',
+                            subtitle: 'Osakidetzako ospitale bakoitzean ZIUn eta plantan ingresatutako pazienteen egoera'
+                        },
+                        bars: 'horizontal',
+                        series: {
+                            0: { axis: 'Plantan ingresatuta' },
+                            1: { axis: 'ZIUn ingresatuta' }
+                        },
+                        axes: {
+                            x: {
+                                distance: { label: 'Pazienteak' }, // Bottom x-axis.
+                                brightness: { side: 'top', label: 'apparent magnitude' } // Top x-axis.
+                            }
+                        }
+                    };
+                } else {
+                    data.addColumn('string', 'Hospitales');
+                    data.addColumn('number', 'Ingresados planta');
+                    data.addColumn('number', 'Ingresados UCI');
+                    for (let element of dataJson.byDate[dataJson.byDate.length - 1].byHospital) {
+                        data.addRow([element.hospital, element.floorPeopleCount, element.icuPeopleCount]);
+                    }
+                    var options = {
+                        width: 800,
+                        chart: {
+                            title: 'Situación en cada uno de los hospitales de Osakidetza',
+                            subtitle: 'Pacientes ingresados en planta y en UCI en cada uno de los hospitales de Osakidetza (Servicio Vasco de Salud)'
+                        },
+                        bars: 'horizontal',
+                        series: {
+                            0: { axis: 'Ingresados en planta' },
+                            1: { axis: 'Ingresados en UCI' }
+                        },
+                        axes: {
+                            x: {
+                                distance: { label: 'Pacientes' }, // Bottom x-axis.
+                                brightness: { side: 'top', label: 'apparent magnitude' } // Top x-axis.
+                            }
+                        }
+                    };
+                }
+                var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+                chart.draw(data, options);
+            };
+
 
             google.charts.load('current', { 'packages': ['table'] });
             google.charts.setOnLoadCallback(drawTable);
