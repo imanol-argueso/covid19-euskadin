@@ -286,3 +286,7 @@ p.intro_graph {
     width:100%;
     float:left;
     }
+#fechaActualizacionMapa {
+    float:left;
+    width:100%;
+}
