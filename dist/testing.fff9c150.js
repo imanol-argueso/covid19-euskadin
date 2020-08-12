@@ -119,7 +119,6 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"js/testing.js":[function(require,module,exports) {
 //import { DATAFILES } from './config';
-//import { getJSON } from './getData.js';
 const DATA_SOURCE = 'https://opendata.euskadi.eus/contenidos/ds_informes_estudios/covid_19_2020/opendata/generated/';
 DATAFILES = {
   EPIDEMICSTATUS: `${DATA_SOURCE}/covid19-epidemic-status.json`,
@@ -129,7 +128,7 @@ DATAFILES = {
   BYHEALTHZONE: `${DATA_SOURCE}/covid19-byhealthzone.json`,
   BYMUNICIPALITY: `${DATA_SOURCE}/covid19-bymunicipality.json`,
   BYHOSPITAL: `${DATA_SOURCE}/covid19-byhospital.json`
-};
+}; //import { getJSON } from './getData.js';
 
 var getJSON = function (url, callback) {
   var xhr = new XMLHttpRequest();
@@ -149,11 +148,18 @@ var getJSON = function (url, callback) {
   xhr.send();
 };
 
+function updated(jsonData) {
+  let lastdate = new Date(jsonData);
+  let formattedlastdate = lastdate.getDate() + "/" + (lastdate.getMonth() + 1) + "/" + lastdate.getFullYear();
+  return formattedlastdate;
+}
+
 window.onload = function () {
   getJSON(DATAFILES.EPIDEMICSTATUS, function (err, dataJson) {
     if (err != null) {
       alert('Something went wrong: ' + err);
     } else {
+      document.getElementById("fechaActualizacion").innerHTML += updated(dataJson.byDate[dataJson.byDate.length - 1].date);
       google.charts.load('current', {
         'packages': ['line']
       });
@@ -161,23 +167,47 @@ window.onload = function () {
 
       function drawChart() {
         var data = new google.visualization.DataTable();
-        data.addColumn('date', 'Fecha');
-        data.addColumn('number', 'Test PCR totales');
-        data.addColumn('number', ' Test rápidos totales');
-        data.addColumn('number', ' Personas únicas con PCR');
 
-        for (let element of dataJson.byDate) {
-          data.addRow([new Date(element.date), element.pcrTestCount, element.serologyTestCount, element.pcrUniquePersonCount]);
+        if (window.location.href.indexOf("/eu/") > -1) {
+          data.addColumn('date', 'Data');
+          data.addColumn('number', 'PCR testak guztira');
+          data.addColumn('number', 'Test azkarrak guztira');
+          data.addColumn('number', 'Pertsona bakarrak PCR');
+          var options = {
+            chart: {
+              title: 'Euskadin egindako testak',
+              subtitle: 'Euskadin egindako PCR eta test azkarrak. Azterketak eta pertsona bakarrak.'
+            },
+            width: 900,
+            height: 500
+          };
+        } else {
+          data.addColumn('date', 'Fecha');
+          data.addColumn('number', 'Test PCR totales');
+          data.addColumn('number', ' Test rápidos totales');
+          data.addColumn('number', ' Personas únicas con PCR');
+          var options = {
+            chart: {
+              title: 'Test realizados en Euskadi',
+              subtitle: 'Test PCR y test rápidos realizados en Euskadi. Pruebas y personas únicas.'
+            },
+            width: 900,
+            height: 500
+          };
         }
 
-        var options = {
-          chart: {
-            title: 'Test realizados en Euskadi',
-            subtitle: 'Test PCR y test rápidos realizados en Euskadi. Pruebas y personas únicas.'
-          },
-          width: 900,
-          height: 500
-        };
+        for (let element of dataJson.byDate) {
+          if (element.pcrUniquePersonCount == 0 && element.serologyTestCount == 0) {
+            data.addRow([new Date(element.date), element.pcrTestCount, null, null]);
+          } else if (element.serologyTestCount == 0) {
+            data.addRow([new Date(element.date), element.pcrTestCount, null, element.pcrUniquePersonCount]);
+          } else if (element.pcrUniquePersonCount == 0) {
+            data.addRow([new Date(element.date), element.pcrTestCount, element.serologyTestCount, null]);
+          } else {
+            data.addRow([new Date(element.date), element.pcrTestCount, element.serologyTestCount, element.pcrUniquePersonCount]);
+          }
+        }
+
         var chart = new google.charts.Line(document.getElementById('linechart_material7'));
         chart.draw(data, google.charts.Line.convertOptions(options));
       }
@@ -189,15 +219,30 @@ window.onload = function () {
 
       function drawTable() {
         var data = new google.visualization.DataTable();
-        data.addColumn('date', 'Fecha');
-        data.addColumn('number', 'Test PCR totales');
-        data.addColumn('number', ' Test rápidos totales');
-        data.addColumn('number', ' Personas únicas con PCR');
+
+        if (window.location.href.indexOf("/eu/") > -1) {
+          data.addColumn('date', 'Data');
+          data.addColumn('number', 'PCR testak guztira');
+          data.addColumn('number', 'Test azkarrak guztira');
+          data.addColumn('number', ' Pertsona bakarrak PCR');
+          var monthYearFormatter = new google.visualization.DateFormat({
+            pattern: "yyy-MM-dd"
+          });
+        } else {
+          data.addColumn('date', 'Fecha');
+          data.addColumn('number', 'Test PCR totales');
+          data.addColumn('number', ' Test rápidos totales');
+          data.addColumn('number', ' Personas únicas con PCR');
+          var monthYearFormatter = new google.visualization.DateFormat({
+            pattern: "dd-MM-yyy"
+          });
+        }
 
         for (let element of dataJson.byDate) {
           data.addRow([new Date(element.date), element.pcrTestCount, element.serologyTestCount, element.pcrUniquePersonCount]);
         }
 
+        monthYearFormatter.format(data, 0);
         var table = new google.visualization.Table(document.getElementById('table_div7'));
         table.draw(data, {
           showRowNumber: true,
@@ -238,7 +283,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61569" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63145" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

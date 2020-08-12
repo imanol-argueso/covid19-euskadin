@@ -44,12 +44,14 @@ window.onload = function () {
                 if (window.location.href.indexOf("/eu/") > -1) {
                     data.addColumn('date', 'Data');
                     data.addColumn('number', 'PCR testak guztira');
+                    /*
                     data.addColumn('number', 'Test azkarrak guztira');
                     data.addColumn('number', 'Pertsona bakarrak PCR');
+                    */
                     var options = {
                         chart: {
                             title: 'Euskadin egindako testak',
-                            subtitle: 'Euskadin egindako PCR eta test azkarrak. Azterketak eta pertsona bakarrak.',
+                            subtitle: 'Euskadin egindako PCR testak.',
                         },
                         width: 900,
                         height: 500
@@ -57,12 +59,14 @@ window.onload = function () {
                 } else {
                     data.addColumn('date', 'Fecha');
                     data.addColumn('number', 'Test PCR totales');
+                    /*
                     data.addColumn('number', ' Test rápidos totales');
                     data.addColumn('number', ' Personas únicas con PCR');
+                    */
                     var options = {
                         chart: {
                             title: 'Test realizados en Euskadi',
-                            subtitle: 'Test PCR y test rápidos realizados en Euskadi. Pruebas y personas únicas.',
+                            subtitle: 'Test PCR realizados en Euskadi.',
                         },
                         width: 900,
                         height: 500
@@ -70,15 +74,17 @@ window.onload = function () {
 
                 }
                 for (let element of dataJson.byDate) {
+                    /*
                     if (element.pcrUniquePersonCount == 0 && element.serologyTestCount == 0) {
-                        data.addRow([new Date(element.date), element.pcrTestCount, null, null]);
+                        data.addRow([new Date(element.date), element.pcrTestCount, ,]);
                     } else if (element.serologyTestCount == 0) {
-                        data.addRow([new Date(element.date), element.pcrTestCount, null, element.pcrUniquePersonCount]);
+                        data.addRow([new Date(element.date), element.pcrTestCount, undefined, element.pcrUniquePersonCount]);
                     } else if (element.pcrUniquePersonCount == 0) {
-                        data.addRow([new Date(element.date), element.pcrTestCount, element.serologyTestCount, null]);
+                        data.addRow([new Date(element.date), element.pcrTestCount, element.serologyTestCount, undefined]);
                     } else {
-                        data.addRow([new Date(element.date), element.pcrTestCount, element.serologyTestCount, element.pcrUniquePersonCount]);
-                    }
+                        */
+                    data.addRow([new Date(element.date), element.pcrTestCount]);
+                    //}
                 }
 
                 var chart = new google.charts.Line(document.getElementById('linechart_material7'));

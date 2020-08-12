@@ -247,7 +247,7 @@ window.onload = function () {
                     data.addColumn('number', 'Hilgarritasuna');
                     data.addColumn('number', 'Biztanleak (TISak guztira)');
                     var options = {
-                        title: 'Euskadiko osasun eremuen positibo (100.000 biztanleko tasa) eta hilgarritasunaren arteko korrelazioa. Hilgarritsaun handiena (>13%) duten osasun eremuak bakarrik erakusten dira.',
+                        title: 'Euskadiko osasun eremuen positibo (100.000 biztanleko tasa) eta hilgarritasunaren arteko korrelazioa. Hilgarritsaun handiena (>10%) duten osasun eremuak bakarrik erakusten dira.',
                         hAxis: { title: 'Positiboak (100.000 biztanleko tasa)' },
                         vAxis: { title: 'Hilgarritasuna' },
                         bubble: { textStyle: { fontSize: 11 } }
@@ -258,14 +258,14 @@ window.onload = function () {
                     data.addColumn('number', 'Letalidad');
                     data.addColumn('number', 'Poblacion (Total de TIS)');
                     var options = {
-                        title: 'Correlación entre positivos (tasa por 100.000 hab.) y letalidad en las zonas de salud de Euskadi. Se muestran tan solo las zonas de salud con mayor letalidad (> 13%).',
+                        title: 'Correlación entre positivos (tasa por 100.000 hab.) y letalidad en las zonas de salud de Euskadi. Se muestran tan solo las zonas de salud con mayor letalidad (> 10%).',
                         hAxis: { title: 'Positivos (tasa por 100.000 hab.)' },
                         vAxis: { title: 'Letalidad' },
                         bubble: { textStyle: { fontSize: 11 } }
                     };
                 }
                 for (let element of dataJson.dataByDateByHealthZone[0].items) {
-                    if (element.mortalityRate > 13) {
+                    if (element.mortalityRate > 10) {
                         data.addRow([element.healthZone.name, element.positiveBy100ThousandPeopleRate, element.mortalityRate, element.tisCount]);
                     }
                 }

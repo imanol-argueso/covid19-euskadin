@@ -1,4 +1,4 @@
-//import { DATAFILES } from './config';
+/*import { DATAFILES } from './config';*/
 const DATA_SOURCE = 'https://opendata.euskadi.eus/contenidos/ds_informes_estudios/covid_19_2020/opendata/generated/';
 DATAFILES = {
     EPIDEMICSTATUS: `${DATA_SOURCE}/covid19-epidemic-status.json`,
@@ -132,7 +132,7 @@ window.onload = function () {
         if (err != null) {
             alert('Something went wrong: ' + err);
         } else {
-            document.getElementById("fechaActualizacion").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
+            document.getElementById("fechaActualizacion").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date) + " (0:00)";
             document.getElementById("positivos").innerHTML = dashboard(dataJson, 'pcrPositiveCount');
             document.getElementById("actualizadoPositivos").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
             document.getElementById("actualizadoR0").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
@@ -280,7 +280,6 @@ window.onload = function () {
                 }
                 last14municipality.push({ municipalityName: element.dimension.officialName, municipalityCode: '' + element.dimension.countyId + element.dimension.oid + '', positives: lastpositives });
             }
-            console.log(last14municipality);
             var popupInfo;
             var popupNoData;
             var title;

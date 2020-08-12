@@ -4,24 +4,37 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="/all.a4463b27.css" rel="stylesheet">
     <link href="/styles.956d002c.css" rel="stylesheet">
+    <link href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.0.6/dist/css/leaflet.extra-markers.min.css" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Últimos datos sobre la evolución del Covid-19 en Euskadi</title>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-141364393-2"></script>
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.0.6/src/assets/js/leaflet.extra-markers.min.js"></script>
+    <script>window.dataLayer = window.dataLayer || [];
+
+function gtag() {
+  dataLayer.push(arguments);
+}
+
+gtag('js', new Date());
+gtag('config', 'UA-141364393-2');</script>
 <script src="/all.a4463b27.js"></script><script src="/styles.956d002c.js"></script></head>
 
 <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/index.html">Evolución del Covid-19 en Euskadi</a>
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/index.html">Covid-19 en Euskadi</a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <ul class="navbar-nav px-3 languages">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">eu</a>
+                <a class="nav-link" href="/eu\index-eu.html">eu</a>
             </li>
             <li class="nav-item text-nowrap">
                 <span class="nav-no-link">es</span>
@@ -81,6 +94,18 @@
                                 Por municipio
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/es\positivos-fallecidos-por-zona-salud.html">
+                                <i class="fas fa-clinic-medical"></i>
+                                Por zona salud
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/es\hospitales.html">
+                                <i class="far fa-hospital"></i>
+                                Por hospital
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -90,19 +115,24 @@
                     <h1 class="h2">Últimos datos del Covid-19 en Euskadi</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <a href="https://api.whatsapp.com/send?text=evolución%20del%20covid-19%20en%20Euskadihttps://opendata.euskadi.eus" class="btn btn-sm btn-outline-secondary"><i class="fab fa-whatsapp"></i>Whatsapp</a>
+                            <a href="whatsapp://send?text=Últimos datos sobre la evolución del Covid-19 en Euskadi - https://covid19-euskadin.herokuapp.com/" data-action="share/whatsapp/share" class="btn btn-sm btn-outline-secondary">
+                                <i class="fab fa-whatsapp"></i>Whatsapp</a>
 
-                            <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fab fa-facebook-f"></i>Facebook</a>
-                            <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fab fa-twitter"></i>Twitter</a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://covid19-euskadin.herokuapp.com/" class="btn btn-sm btn-outline-secondary"><i class="fab fa-facebook-f"></i>Facebook</a>
+                            <a href="http://twitter.com/share?text=Últimos datos sobre la evolución del Covid-19 en Euskadi&url=https://covid19-euskadin.herokuapp.com/&hashtags=covid19,opendata" class="btn btn-sm btn-outline-secondary"><i class="fab fa-twitter"></i>Twitter</a>
                         </div>
                     </div>
                 </div>
                 <div class="dashboard">
+                    <div id="fechaActualizacion" class="fechaActualizacion">Última actualización de datos del Gobierno
+                        Vasco: </div>
                     <div id="positivosContainer" class="dashboardContainer">
                         <i class="fas fa-user-plus"></i>
                         <div class="literal">
-                            <div id="positivos"></div>
-                            <p>Casos positivos totales</p>
+                            <div class="display">
+                                <p id="positivos"></p>
+                                <p class="literalDisplay">Positivos PCR</p>
+                            </div>
                         </div>
                         <div id="linechart_material_mini1"></div>
                         <div class="detalle">
@@ -114,8 +144,10 @@
                     <div id="r0Container" class="dashboardContainer">
                         <i class="fas fa-viruses"></i>
                         <div class="literal">
-                            <div id="r0"></div>
-                            <p>Número de reproducción</p>
+                            <div class="display">
+                                <p id="r0"></p>
+                                <p class="literalDisplay">Número reproducción</p>
+                            </div>
                         </div>
                         <div id="linechart_material_mini3"></div>
                         <div class="detalle">
@@ -128,8 +160,10 @@
                     <div id="fallecidosContainer" class="dashboardContainer">
                         <i class="fas fa-procedures"></i>
                         <div class="literal">
-                            <div id="fallecidos"></div>
-                            <p>Fallecidos</p>
+                            <div class="display">
+                                <p id="fallecidos"></p>
+                                <p class="literalDisplay">Fallecidos</p>
+                            </div>
                         </div>
                         <div id="linechart_material_mini2"></div>
                         <div class="detalle">
@@ -138,53 +172,96 @@
                         </div>
                     </div>
 
-                    <div id="testsPcrContainer" class="dashboardLiteralContainer">
+                    <div id="testsPcrContainer" class="dashboardContainer">
                         <i class="fas fa-vial"></i>
                         <div class="literal">
-                            <div id="tests"></div>
-                            <p>Test PCR realizados</p>
+                            <div class="display">
+                                <p id="tests"></p>
+                                <p class="literalDisplay">Test PCR</p>
+                            </div>
+                        </div>
+                        <div id="linechart_material_mini4"></div>
+
+                        <div class="detalle">
+                            <p id="actualizadoPcrTestCount"></p>
+                            <a href="/es\tests.html">Más detalle</a>
                         </div>
                     </div>
 
-                    <div id="testsRapidosContainer" class="dashboardLiteralContainer">
-                        <i class="fas fa-user-nurse"></i>
-                        <div class="literal">
-                            <div id="testsRapidos"></div>
-                            <p>Test rápidos realizados</p>
-                        </div>
-                    </div>
 
-                    <div id="testsPcrContainer" class="dashboardLiteralContainer">
-                        <i class="fas fa-users"></i>
+                    <div id="hospitalizadosUciContainer" class="dashboardLiteralContainer">
+                        <i class="fas fa-ambulance"></i>
                         <div class="literal">
-                            <div id="personasUnicasPcr"></div>
-                            <p>Personas únicas con PCR+</p>
+                            <div class="display">
+                                <p id="hospitalizadosUci"></p>
+                                <p class="literalDisplay">Ingresados en UCI</p>
+                            </div>
+                        </div>
+                        <div id="linechart_material_mini5"></div>
+
+                        <div class="detalle">
+                            <p id="actualizadoicuPeopleCount"></p>
+                            <a href="/es\hospitales.html">Más detalle</a>
                         </div>
                     </div>
 
                     <div id="hospitalizacionesContainer" class="dashboardLiteralContainer">
                         <i class="fas fa-hospital-user"></i>
                         <div class="literal">
-                            <div id="hospitalizaciones"></div>
-                            <p>Ingresos en planta (PCR+)</p>
+                            <div class="display">
+                                <p id="hospitalizaciones"></p>
+                                <p class="literalDisplay">Ingresados en planta</p>
+                            </div>
                         </div>
-                    </div>
-                    <div id="testsRapidosContainer" class="dashboardLiteralContainer">
-                        <i class="fas fa-ambulance"></i>
-                        <div class="literal">
-                            <div id="hospitalizadosUci"></div>
-                            <p>Hospitalizados en UCI</p>
+                        <div id="linechart_material_mini6"></div>
+
+                        <div class="detalle">
+                            <p id="actualizadohospitalReleasedCount"></p>
+                            <a href="/es\hospitales.html">Más detalle</a>
                         </div>
                     </div>
 
-                    <div id="hospitalizacionesContainer" class="dashboardLiteralContainer">
-                        <i class="fas fa-user-minus"></i>
+                    <div id="positivosArabaContainer" class="dashboardLiteralContainer">
+                        <i class="fas fa-user-plus"></i>
                         <div class="literal">
-                            <div id="altasHospitalarias"></div>
-                            <p>Altas hospitalarias</p>
+                            <div class="display">
+                                <p id="positivosAraba"></p>
+                                <p class="literalDisplay">PCR+ en Álava</p>
+                            </div>
+                            <p id="actualizadoserologyTestCount"></p>
+                        </div>
+                    </div>
+
+                    <div id="positivosBizkaiaContainer" class="dashboardLiteralContainer">
+                        <i class="fas fa-user-plus"></i>
+                        <div class="literal">
+                            <div class="display">
+                                <p id="positivosBizkaia"></p>
+                                <p class="literalDisplay">PCR+ en Bizkaia</p>
+                            </div>
+                            <p id="actualizadopcrUniquePersonCount"></p>
+                        </div>
+                    </div>
+
+                    <div id="positivosGipuzkoaContainer" class="dashboardLiteralContainer">
+                        <i class="fas fa-user-plus"></i>
+                        <div class="literal">
+                            <div class="display">
+                                <p id="positivosGipuzkoa"></p>
+                                <p class="literalDisplay">PCR+ en Gipuzkoa</p>
+                            </div>
+                            <p id="actualizadonewHospitalAdmissionsWithPCRCount"></p>
                         </div>
                     </div>
                 </div>
+                <h2 class="intro_graph">Últimos brotes por municipios</h2>
+                <p class="intro_graph">Municipios con más positivos en los <strong>últimos 14 días</strong> en Euskadi.
+                </p>
+                <div id="fechaActualizacionMapa" class="fechaActualizacion">El Gobierno Vasco ha actualizado estos datos
+                    el
+                </div>
+                <div id="map2"></div>
+
             </main>
         </div>
     </div>
@@ -198,13 +275,10 @@
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>-->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-    <script src="/dashboard.60a5f609.js"></script>
+    <script src="/dashboard-beta.e7d56d51.js" type="module"></script>
 </body>
 
 </html>

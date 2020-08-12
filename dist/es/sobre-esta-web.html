@@ -11,17 +11,27 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Sobre esta web</title>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-141364393-2"></script>
+    <script>window.dataLayer = window.dataLayer || [];
+
+function gtag() {
+  dataLayer.push(arguments);
+}
+
+gtag('js', new Date());
+gtag('config', 'UA-141364393-2');</script>
 </head>
 
 <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/index.html">Evolución del Covid-19 en Euskadi</a>
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/index.html">Covid-19 en Euskadi</a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <ul class="navbar-nav px-3 languages">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">eu</a>
+                <a class="nav-link" href="/eu\webguneari-buruz.html">eu</a>
             </li>
             <li class="nav-item text-nowrap">
                 <span class="nav-no-link">es</span>
@@ -81,6 +91,18 @@
                                 Por municipio
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/es\positivos-fallecidos-por-zona-salud.html">
+                                <i class="fas fa-clinic-medical"></i>
+                                Por zona salud
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/es\hospitales.html">
+                                <i class="far fa-hospital"></i>
+                                Por hospital
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -89,26 +111,31 @@
                     <h1 class="h2">Sobre esta web</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <a href="https://api.whatsapp.com/send?text=evolución%20del%20covid-19%20en%20Euskadihttps://opendata.euskadi.eus" class="btn btn-sm btn-outline-secondary"><i class="fab fa-whatsapp"></i>Whatsapp</a>
+                            <a href="whatsapp://send?text=Sobre esta web - https://covid19-euskadin.herokuapp.com/es/sobre-esta-web.html" data-action="share/whatsapp/share" class="btn btn-sm btn-outline-secondary">
+                                <i class="fab fa-whatsapp"></i>Whatsapp</a>
 
-                            <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fab fa-facebook-f"></i>Facebook</a>
-                            <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fab fa-twitter"></i>Twitter</a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://covid19-euskadin.herokuapp.com/es/sobre-esta-web.html" class="btn btn-sm btn-outline-secondary"><i class="fab fa-facebook-f"></i>Facebook</a>
+                            <a href="http://twitter.com/share?text=Sobre esta web&url=https://covid19-euskadin.herokuapp.com/es/sobre-esta-web.html/&hashtags=covid19,opendata" class="btn btn-sm btn-outline-secondary"><i class="fab fa-twitter"></i>Twitter</a>
                         </div>
                     </div>
 
                 </div>
-                <p>Este sitio web se actualiza de forma automática con los datos sobre la <a href="https://opendata.euskadi.eus/catalogo/-/evolucion-del-coronavirus-covid-19-en-euskadi/">evolución
+                <p>Este sitio web no es oficial, lo he creado a nivel particular aunque la información que se muestra sí
+                    proviene de <strong>fuentes oficiales</strong>.</p>
+                <h2>Frecuencia de actualización</h2>
+                <p>La web se actualiza de forma automática con los datos sobre la <a href="https://opendata.euskadi.eus/catalogo/-/evolucion-del-coronavirus-covid-19-en-euskadi/">evolución
                         del covid-19 de Open
                         Data Euskadi</a>, el portal de datos abiertos del Gobierno Vasco.</p>
-                <p>En Open Data Euskadi se publica un dataset que se nutre del <a href="https://www.euskadi.eus/boletin-de-datos-sobre-la-evolucion-del-coronavirus/web01-a2korona/es/">boletín
+                <p>En Open Data Euskadi se publica un dataset a partir del <a href="https://www.euskadi.eus/boletin-de-datos-sobre-la-evolucion-del-coronavirus/web01-a2korona/es/">boletín
                         diario del departamento de Salud
                         del Gobierno Vasco</a>. Este dataset contiene datos con diferente frecuencia de actualización
                     (diaria, semanal, etc.).
                     Es por ello que algunos datos de este sitio web se actualizan diariamente y otros con una frecuencia
-                    mayor.</p>
+                    mayor. Como consecuencia de esta variedad en la frecuencia de actualización por parte del Gobierno
+                    Vasco, se indica la fecha en cada sección.</p>
                 <h2>Contacto</h2>
-                <p>He desarrollado este sitio web en mi tiempo libre. Cualquier sugerencia o comentario será bienvenido.
-                    Puedes contactar conmigo a través de <a href="#">este formulario</a>. </p>
+                <p>Para enviar cualquier sugerencia o comentario puedes contactar con el creador de la web a través del
+                    <a href="mailto:alguacilin@gmail.com">correo electrónico</a>. </p>
             </main>
         </div>
     </div>
