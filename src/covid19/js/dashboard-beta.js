@@ -132,7 +132,7 @@ window.onload = function () {
         if (err != null) {
             alert('Something went wrong: ' + err);
         } else {
-            document.getElementById("fechaActualizacion").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date) + " (0:00)";
+            document.getElementById("fechaActualizacion").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date) + " (23:00)";
             document.getElementById("positivos").innerHTML = dashboard(dataJson, 'pcrPositiveCount');
             document.getElementById("actualizadoPositivos").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
             document.getElementById("actualizadoR0").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);

@@ -72,8 +72,52 @@ window.onload = function () {
                 for (let element of dataJson.byDate) {
                     data.addRow([new Date(element.date), element.positiveCount]);
                 }
+
                 var chart = new google.charts.Line(document.getElementById('linechart_material'));
                 chart.draw(data, google.charts.Line.convertOptions(options));
+
+                /*
+
+                var data = new google.visualization.DataTable();
+                if (window.location.href.indexOf("/eu/") > -1) {
+                    data.addColumn('date', 'Data');
+                    data.addColumn('number', 'Euskadi: Kasu positiboen tasa egindako PCR proben arabera');
+                    var options = {
+                        chart: {
+                            title: 'Kasu positiboen tasa egindako PCR proben arabera',
+                            subtitle: 'Kasu positiboak zati egindako PCR testak',
+                        },
+                        hAxis: { format: 'yy/M/d' },
+                        width: 900,
+                        height: 500
+                    };
+                } else {
+                    data.addColumn('date', 'Fecha');
+                    data.addColumn('number', 'Euskadi: Tasa de positivos en función de los test PCR realizados');
+                    var options = {
+                        chart: {
+                            title: 'Tasa de positivos en función de los test PCR realizados',
+                            subtitle: 'Casos positivos entre las pruebas PCR realizadas',
+                        },
+                        hAxis: { format: 'M/d/yy' },
+                        width: 900,
+                        height: 500
+                    };
+                }
+                for (let element of dataJson.byDate) {
+                    data.addRow([new Date(element.date), element.positiveCount]);
+                }
+                var chart = new google.charts.Line(document.getElementById('linechart_material1'));
+                chart.draw(data, google.charts.Line.convertOptions(options));
+
+                */
+
+
+
+
+
+
+
 
                 var data = new google.visualization.DataTable();
                 if (window.location.href.indexOf("/eu/") > -1) {
