@@ -271,15 +271,16 @@ window.onload = function () {
             alert('Something went wrong: ' + err);
         } else {
             var last14municipality = [];
-            var y = 0;
+            //var y = 0;
             for (let element of dataJson.newPositivesByMunicipalityByDate.positiveCountByMunicipalityByDate) {
-                y = y + 1;
+                //y = y + 1;
                 var lastpositives = 0;
                 for (i = element.values.length - 14; i < element.values.length; i++) {
                     lastpositives += element.values[i];
                 }
                 last14municipality.push({ municipalityName: element.dimension.officialName, municipalityCode: '' + element.dimension.countyId + element.dimension.oid + '', positives: lastpositives });
             }
+            //console.log(last14municipality);
             var popupInfo;
             var popupNoData;
             var title;
