@@ -35,7 +35,6 @@ window.onload = function () {
             alert('Something went wrong: ' + err);
         } else {
             document.getElementById("fechaActualizacion").innerHTML += updated(dataJson.byDate[dataJson.byDate.length - 1].date);
-
             google.charts.load('current', { 'packages': ['line'] });
             google.charts.setOnLoadCallback(drawChart);
 
@@ -44,6 +43,7 @@ window.onload = function () {
                 if (window.location.href.indexOf("/eu/") > -1) {
                     data.addColumn('date', 'Data');
                     data.addColumn('number', 'Biderkatze zenbakia (r0)');
+                    data.addColumn('number', 'Erreferentziazko R0 = 1');
                     var options = {
                         chart: {
                             title: 'Biderkatze zenbakia Euskadin',
@@ -55,6 +55,7 @@ window.onload = function () {
                 } else {
                     data.addColumn('date', 'Fecha');
                     data.addColumn('number', 'Número de Reproducción (r0)');
+                    data.addColumn('number', 'R0 de referencia = 1');
                     var options = {
                         chart: {
                             title: 'Número de reproducción en Euskadi',
@@ -66,7 +67,7 @@ window.onload = function () {
                 }
                 for (let element of dataJson.byDate) {
                     if (element.date > '2020-03-07T22:00:00Z') {
-                        data.addRow([new Date(element.date), element.r0]);
+                        data.addRow([new Date(element.date), element.r0, 1]);
                     }
                 }
                 var chart = new google.charts.Line(document.getElementById('linechart_material3'));

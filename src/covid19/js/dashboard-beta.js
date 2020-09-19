@@ -152,12 +152,14 @@ window.onload = function () {
                 data.addColumn('date', '');
                 if (window.location.href.indexOf("/eu/") > -1) {
                     data.addColumn('number', 'Biderkatze zenbakia (r0)');
+                    data.addColumn('number', 'Erreferentziazko R0');
                 } else {
                     data.addColumn('number', 'Número de Reproducción (r0)');
+                    data.addColumn('number', 'R0 de referencia');
                 }
                 for (let element of dataJson.byDate) {
                     if (element.date > '2020-03-07T22:00:00Z') {
-                        data.addRow([new Date(element.date), element.r0]);
+                        data.addRow([new Date(element.date), element.r0, 1]);
                     }
                 }
                 var options = {
