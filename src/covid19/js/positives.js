@@ -165,11 +165,11 @@ window.onload = function () {
                 var data = new google.visualization.DataTable();
                 if (window.location.href.indexOf("/eu/") > -1) {
                     data.addColumn('date', 'Data');
-                    data.addColumn('number', 'Euskadi: Kasu positiboen tasa egindako PCR proben arabera');
-                    data.addColumn('number', 'Errenferentziazko tasa = 0.5');
+                    data.addColumn('number', 'Positiboen tasa: Positiboak zati egindako PCR probak (%)');
+                    data.addColumn('number', 'Errenferentziazko tasa = %5');
                     var options = {
                         chart: {
-                            title: 'Kasu positiboen tasa egindako PCR proben arabera',
+                            title: 'Kasu positiboen tasa egindako PCR proben arabera (%)',
                             subtitle: 'Kasu positiboak zati egindako PCR testak Euskadin.',
                         },
                         hAxis: { format: 'yy/M/d' },
@@ -178,11 +178,11 @@ window.onload = function () {
                     };
                 } else {
                     data.addColumn('date', 'Fecha');
-                    data.addColumn('number', 'Euskadi: Tasa de positivos en función de los test PCR realizados');
-                    data.addColumn('number', 'Tasa de referencia = 0.5');
+                    data.addColumn('number', 'Tasa de positivos: Positivos entre los test PCR realizados (%)');
+                    data.addColumn('number', 'Tasa de referencia = 5%');
                     var options = {
                         chart: {
-                            title: 'Tasa de positivos en función de los test PCR realizados',
+                            title: 'Tasa de positivos en función de los test PCR realizados (%)',
                             subtitle: 'Casos positivos entre las pruebas PCR realizadas en Euskadi.',
                         },
                         hAxis: { format: 'M/d/yy' },
@@ -194,14 +194,13 @@ window.onload = function () {
                 let previousPositives;
                 let previousPcr;
                 for (i = 0; i < dataJson.byDate.length; i++) {
-                    positivesPcrRate.push({ date: dataJson.byDate[i].date, positives: dataJson.byDate[i].pcrPositiveCount, pcr: dataJson.byDate[i].pcrTestCount, rate: (((dataJson.byDate[i].pcrPositiveCount) - previousPositives) / ((dataJson.byDate[i].pcrTestCount) - previousPcr)) * 10 });
+                    positivesPcrRate.push({ date: dataJson.byDate[i].date, positives: dataJson.byDate[i].pcrPositiveCount, pcr: dataJson.byDate[i].pcrTestCount, rate: (((dataJson.byDate[i].pcrPositiveCount) - previousPositives) / ((dataJson.byDate[i].pcrTestCount) - previousPcr)) * 100 });
                     previousPositives = dataJson.byDate[i].pcrPositiveCount;
                     previousPcr = dataJson.byDate[i].pcrTestCount;
                 }
-                console.log(positivesPcrRate);
                 for (let element of positivesPcrRate) {
                     if (element.date > '2020-04-25T22:00:00Z') {
-                        data.addRow([new Date(element.date), element.rate, 0.5]);
+                        data.addRow([new Date(element.date), element.rate, 5]);
                     }
                 }
                 var chart = new google.charts.Line(document.getElementById('linechart_material1'));

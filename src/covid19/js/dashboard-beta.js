@@ -135,6 +135,19 @@ window.onload = function () {
             document.getElementById("fechaActualizacion").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date) + " (23:00)";
             document.getElementById("positivos").innerHTML = dashboard(dataJson, 'pcrPositiveCount');
             document.getElementById("actualizadoPositivos").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
+
+            let todayPositives = dataJson.byDate[dataJson.byDate.length - 1].pcrPositiveCount;
+            let yesterdayPositives = dataJson.byDate[dataJson.byDate.length - 2].pcrPositiveCount;
+            let previousYesterdayPositives = dataJson.byDate[dataJson.byDate.length - 3].pcrPositiveCount;
+
+            let todayTests = dataJson.byDate[dataJson.byDate.length - 1].pcrTestCount
+            let yesterdayTests = dataJson.byDate[dataJson.byDate.length - 2].pcrTestCount;
+            let previousYesterdayTests = dataJson.byDate[dataJson.byDate.length - 3].pcrTestCount;
+            let positivesRate = (((todayPositives - yesterdayPositives) / (todayTests - yesterdayTests)) * 100).toFixed(2);
+            let yesterdayPositivesRate = (((yesterdayPositives - previousYesterdayPositives) / (yesterdayTests - previousYesterdayTests)) * 100).toFixed(2);
+
+            document.getElementById("positivosRate").innerHTML = positivesRate + '% (' + format((positivesRate - yesterdayPositivesRate).toFixed(2)) + ')';
+            document.getElementById("actualizadoPositivosRate").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
             document.getElementById("actualizadoR0").innerHTML += updated(dataJson.r0ByDate[dataJson.r0ByDate.length - 1].date);
             document.getElementById("r0").innerHTML = dashboard(dataJson, 'r0');
             document.getElementById("tests").innerHTML = dashboard(dataJson, 'pcrTestCount');
@@ -186,9 +199,7 @@ window.onload = function () {
                     data.addColumn('number', 'Guztira egindako PCR testk');
                 }
                 for (let element of dataJson.byDate) {
-                    //if (element.date > '2020-03-07T22:00:00Z') {
                     data.addRow([new Date(element.date), element.pcrTestCount]);
-                    //}
                 }
                 var options = {
                     legend: { position: 'none' },
@@ -200,6 +211,43 @@ window.onload = function () {
                 };
                 var chart2 = new google.charts.Line(document.getElementById('linechart_material_mini4'));
                 chart2.draw(data, google.charts.Line.convertOptions(options));
+            }
+
+            google.charts.setOnLoadCallback(drawChart3);
+
+            function drawChart3() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('date', '');
+                if (window.location.href.indexOf("/eu/") > -1) {
+                    data.addColumn('number', 'Positiboen tasa: Positiboak zati egindako PCR testak (%)');
+                    data.addColumn('number', 'Errenferentziazko tasa = %5');
+                } else {
+                    data.addColumn('number', 'Tasa de positivos: Positivos entre PCR realizados (%)');
+                    data.addColumn('number', 'Tasa de referencia = 5%');
+                }
+                var positivesPcrRate = [];
+                let previousPositives;
+                let previousPcr;
+                for (i = 0; i < dataJson.byDate.length; i++) {
+                    positivesPcrRate.push({ date: dataJson.byDate[i].date, positives: dataJson.byDate[i].pcrPositiveCount, pcr: dataJson.byDate[i].pcrTestCount, rate: (((dataJson.byDate[i].pcrPositiveCount) - previousPositives) / ((dataJson.byDate[i].pcrTestCount) - previousPcr)) * 100 });
+                    previousPositives = dataJson.byDate[i].pcrPositiveCount;
+                    previousPcr = dataJson.byDate[i].pcrTestCount;
+                }
+                for (let element of positivesPcrRate) {
+                    if (element.date > '2020-04-25T22:00:00Z') {
+                        data.addRow([new Date(element.date), element.rate, 5]);
+                    }
+                }
+                var options = {
+                    legend: { position: 'none' },
+                    hAxis: { format: 'M/d/yy' },
+                    colors: ['#6c757d'],
+                    curveType: 'function',
+                    width: 297,
+                    height: 197
+                };
+                var chart3 = new google.charts.Line(document.getElementById('linechart_material_mini7'));
+                chart3.draw(data, google.charts.Line.convertOptions(options));
             }
         }
     });
