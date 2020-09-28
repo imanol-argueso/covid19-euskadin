@@ -42,11 +42,11 @@ window.onload = function () {
                 var data = new google.visualization.DataTable();
                 if (window.location.href.indexOf("/eu/") > -1) {
                     data.addColumn('date', 'Data');
-                    data.addColumn('number', 'Biderkatze zenbakia (r0)');
+                    data.addColumn('number', 'Birsorkuntza zenbakia (R0)');
                     data.addColumn('number', 'Erreferentziazko R0 = 1');
                     var options = {
                         chart: {
-                            title: 'Biderkatze zenbakia Euskadin',
+                            title: 'Birsorkuntza zenbakia Euskadin',
                             subtitle: 'Gaixotasun baten R0 delakoa da, batez beste, gaixo batek kutsatzeko epean eragingo dituen kasu kopurua.'
                         },
                         width: 900,
@@ -54,7 +54,7 @@ window.onload = function () {
                     };
                 } else {
                     data.addColumn('date', 'Fecha');
-                    data.addColumn('number', 'Número de Reproducción (r0)');
+                    data.addColumn('number', 'Número de Reproducción (R0)');
                     data.addColumn('number', 'R0 de referencia = 1');
                     var options = {
                         chart: {

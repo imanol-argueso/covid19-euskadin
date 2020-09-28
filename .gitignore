@@ -1,5 +1,6 @@
 node_modules
 src/hearthstone
+src/PEC1_Eje2_1
 .cache/
 dist/
 .env
