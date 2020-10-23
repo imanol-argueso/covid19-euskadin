@@ -160,10 +160,10 @@ window.onload = function () {
             }).addTo(map2)
             //let geojson_url2 = "./maps/osasun_eremuak_2018_latlon.json";
             function getColor2(d) {
-                return d > 14 ? '#800026' :
-                    d > 12 ? '#BD0026' :
-                        d > 10 ? '#E31A1C' :
-                            d > 8 ? '#FC4E2A' :
+                return d > 10 ? '#800026' :
+                    d > 9 ? '#BD0026' :
+                        d > 8 ? '#E31A1C' :
+                            d > 7 ? '#FC4E2A' :
                                 d > 6 ? '#FD8D3C' :
                                     d > 4 ? '#FEB24C' :
                                         d > 2 ? '#FED976' :
@@ -184,7 +184,7 @@ window.onload = function () {
             legend2.onAdd = function (map2) {
 
                 var div = L.DomUtil.create('div', 'info legend'),
-                    grades = [0, 2, 4, 6, 8, 10, 12, 14],
+                    grades = [0, 2, 4, 6, 7, 8, 9, 10],
                     labels = [];
                 for (var i = 0; i < grades.length; i++) {
                     div.innerHTML +=
@@ -247,7 +247,7 @@ window.onload = function () {
                     data.addColumn('number', 'Hilgarritasuna');
                     data.addColumn('number', 'Biztanleak (TISak guztira)');
                     var options = {
-                        title: 'Euskadiko osasun eremuen positibo (100.000 biztanleko tasa) eta hilgarritasunaren arteko korrelazioa. Hilgarritsaun handiena (>8%) duten osasun eremuak bakarrik erakusten dira.',
+                        title: 'Euskadiko osasun eremuen positibo (100.000 biztanleko tasa) eta hilgarritasunaren arteko korrelazioa. Hilgarritsaun handiena (>5%) duten osasun eremuak bakarrik erakusten dira.',
                         hAxis: { title: 'Positiboak (100.000 biztanleko tasa)' },
                         vAxis: { title: 'Hilgarritasuna' },
                         bubble: { textStyle: { fontSize: 11 } }
@@ -258,14 +258,14 @@ window.onload = function () {
                     data.addColumn('number', 'Letalidad');
                     data.addColumn('number', 'Poblacion (Total de TIS)');
                     var options = {
-                        title: 'Correlación entre positivos (tasa por 100.000 hab.) y letalidad en las zonas de salud de Euskadi. Se muestran tan solo las zonas de salud con mayor letalidad (> 8%).',
+                        title: 'Correlación entre positivos (tasa por 100.000 hab.) y letalidad en las zonas de salud de Euskadi. Se muestran tan solo las zonas de salud con mayor letalidad (> 5%).',
                         hAxis: { title: 'Positivos (tasa por 100.000 hab.)' },
                         vAxis: { title: 'Letalidad' },
                         bubble: { textStyle: { fontSize: 11 } }
                     };
                 }
                 for (let element of dataJson.dataByDateByHealthZone[0].items) {
-                    if (element.mortalityRate > 8) {
+                    if (element.mortalityRate > 5) {
                         data.addRow([element.healthZone.name, element.positiveBy100ThousandPeopleRate, element.mortalityRate, element.tisCount]);
                     }
                 }

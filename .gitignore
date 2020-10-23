@@ -1,8 +1,11 @@
 node_modules
 src/hearthstone
-src/PEC1_Eje2_1
+src/literatura
+src/PEC2_Ej1
+src/PEC2_Ej2
+src/PEC2_Ej3
+src/PEC2_Ej4
 .cache/
-dist/
 .env
 .DS_Store
 coverage/

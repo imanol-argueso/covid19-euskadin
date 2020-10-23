@@ -165,11 +165,11 @@ window.onload = function () {
                 var data = new google.visualization.DataTable();
                 if (window.location.href.indexOf("/eu/") > -1) {
                     data.addColumn('date', 'Data');
-                    data.addColumn('number', 'Positiboen tasa: Positiboak zati egindako PCR probak (%)');
+                    data.addColumn('number', 'Kutsatze tasa: Positiboak zati egindako PCR probak (%)');
                     data.addColumn('number', 'Errenferentziazko tasa = %5');
                     var options = {
                         chart: {
-                            title: 'Kasu positiboen tasa egindako PCR proben arabera (%)',
+                            title: 'Kutsatze tasa: Kasu positiboak egindako PCR proben arabera (%)',
                             subtitle: 'Kasu positiboak zati egindako PCR testak Euskadin.',
                         },
                         hAxis: { format: 'yy/M/d' },
@@ -178,11 +178,11 @@ window.onload = function () {
                     };
                 } else {
                     data.addColumn('date', 'Fecha');
-                    data.addColumn('number', 'Tasa de positivos: Positivos entre los test PCR realizados (%)');
+                    data.addColumn('number', 'Tasa de positividad: Positivos entre los test PCR realizados (%)');
                     data.addColumn('number', 'Tasa de referencia = 5%');
                     var options = {
                         chart: {
-                            title: 'Tasa de positivos en función de los test PCR realizados (%)',
+                            title: 'Tasa de Positividad: Positivos en función de los test PCR realizados (%)',
                             subtitle: 'Casos positivos entre las pruebas PCR realizadas en Euskadi.',
                         },
                         hAxis: { format: 'M/d/yy' },
