@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.js"],"names":["name","console","log"],"mappings":";AAEA,MAAMA,EAAO,SACbC,QAAQC,IAAK","file":"literatura.72e637e7.js","sourceRoot":"..\\src\\literatura","sourcesContent":["//console.log('Kaixo mundua!')\r\n\r\nconst name = 'mundua';\r\nconsole.log(`Kaixo ${name}`);"]}
