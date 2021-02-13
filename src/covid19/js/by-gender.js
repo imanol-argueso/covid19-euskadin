@@ -27,7 +27,7 @@ var getJSON = function (url, callback) {
 };
 function updated(jsonData) {
     let lastdate = new Date(jsonData);
-    let formattedlastdate = lastdate.getDate() + "/" + (lastdate.getMonth() + 1) + "/" + lastdate.getFullYear();
+    let formattedlastdate = (lastdate.getDate() - 1) + "/" + (lastdate.getMonth() + 1) + "/" + lastdate.getFullYear();
     return formattedlastdate;
 }
 window.onload = function () {
