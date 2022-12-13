@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="eu">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="/all.a4463b27.css" rel="stylesheet">
+    <link href="/styles.956d002c.css" rel="stylesheet">
+    <link href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.0.6/dist/css/leaflet.extra-markers.min.css" rel="stylesheet">
+    <title>Últimos datos sobre la evolución del Covid-19 en Euskadi</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-141364393-2"></script>
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.0.6/src/assets/js/leaflet.extra-markers.min.js"></script>
+    <script>window.dataLayer = window.dataLayer || [];
+
+function gtag() {
+  dataLayer.push(arguments);
+}
+
+gtag('js', new Date());
+gtag('config', 'UA-141364393-2');</script>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/eu\index-eu.html">Covid-19a Euskadin</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav px-3 languages">
+            <li class="nav-item text-nowrap">
+                <span class="nav-no-link">eu</span>
+            </li>
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/index.html">es</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="sidebar-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/eu\index-eu.html">
+                                <i class="fas fa-home"></i>
+                                Hasiera
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/eu\positiboak.html">
+                                <i class="fas fa-user-plus"></i>
+                                Positiboak
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/eu\biderkatze-zenbakia-euskadin.html">
+                                <i class="fas fa-viruses"></i>
+                                Birsorkuntza zenbakia (R0)
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/eu\hildakoak.html">
+                                <i class="fas fa-procedures"></i>
+                                Hildakoak
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/eu\testak.html">
+                                <i class="fas fa-vial"></i>
+                                Egindako testak
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/eu\adinaren-araberako-positiboak-hildakoak-hilgarritasuna.html">
+                                <i class="fas fa-baby"></i>
+                                Adinaren arabera
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/eu\sexuaren-araberako-positiboak-hildakoak-hilgarritasuna.html">
+                                <i class="fas fa-venus-mars"></i>
+                                Sexuaren arabera
+                            </a>
+                        </li>
+                        <!--<li class="nav-item">
+                            <a class="nav-link"
+                                href="./udalerriaren-araberako-positiboak-hildakoak-hilgarritasuna.html">
+                                <i class="far fa-building"></i>
+                                Udalerriak
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href="./osasun-eremuaren-araberako-positiboak-hildakoak-hilgarritasuna.html">
+                                <i class="fas fa-clinic-medical"></i>
+                                Osasun eremuak
+                            </a>
+                        </li>-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/eu\ospitaleak.html">
+                                <i class="far fa-hospital"></i>
+                                Ospitaleak
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Covid-19aren bilakaeraren azken datuak Euskadin </h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group mr-2">
+                            <a href="whatsapp://send?text=Euskadin Covid-19aren bilakaerari buruzko azken datuak - https://covid19-euskadin.herokuapp.com/eu/index-eu.html" data-action="share/whatsapp/share" class="btn btn-sm btn-outline-secondary">
+                                <i class="fab fa-whatsapp"></i>Whatsapp</a>
+
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://covid19-euskadin.herokuapp.com/eu/index-eu.html" class="btn btn-sm btn-outline-secondary"><i class="fab fa-facebook-f"></i>Facebook</a>
+                            <a href="http://twitter.com/share?text=Euskadin Covid-19aren bilakaerari buruzko azken datuak&url=https://covid19-euskadin.herokuapp.com/eu/index-eu.html/&hashtags=covid19,opendata" class="btn btn-sm btn-outline-secondary"><i class="fab fa-twitter"></i>Twitter</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard">
+                    <div id="fechaActualizacion" class="fechaActualizacion">Eusko Jaurlaritzak datuak astean behin eguneratzen ditu. Eguneratu duen azken eguna: </div>
+                    <div id="positivosContainer" class="dashboardContainer">
+                        <i class="fas fa-user-plus"></i>
+                        <div class="literal">
+                            <div class="display">
+                                <p id="positivos"></p>
+                                <p class="literalDisplay">Positiboak testetan</p>
+                            </div>
+                        </div>
+                        <div id="linechart_material_mini1"></div>
+                        <div class="detalle">
+                            <p id="actualizadoPositivos"></p>
+                            <a href="/eu\positiboak.html">Gehiago</a>
+                        </div>
+                    </div>
+
+                    <div id="positivosContainer" class="dashboardContainer">
+                        <i class="fas fa-percentage"></i>
+                        <div class="literal">
+                            <div class="display">
+                                <p id="positivosRate"></p>
+                                <p class="literalDisplay">Kutsatze tasa</p>
+                            </div>
+                        </div>
+                        <div id="linechart_material_mini7"></div>
+                        <div class="detalle">
+                            <p id="actualizadoPositivosRate"></p>
+                            <a href="/eu\positiboak.html">Gehiago</a>
+                        </div>
+                    </div>
+
+                    <div id="r0Container" class="dashboardContainer">
+                        <i class="fas fa-viruses"></i>
+                        <div class="literal">
+                            <div class="display">
+                                <p id="r0"></p>
+                                <p class="literalDisplay">Birsorkuntza zenbakia</p>
+                            </div>
+                        </div>
+                        <div id="linechart_material_mini3"></div>
+                        <div class="detalle">
+                            <p id="actualizadoR0"></p>
+                            <a href="/eu\biderkatze-zenbakia-euskadin.html">Gehiago</a>
+                        </div>
+                    </div>
+
+                    <div id="fallecidosContainer" class="dashboardContainer">
+                        <i class="fas fa-procedures"></i>
+                        <div class="literal">
+                            <div class="display">
+                                <p id="fallecidos"></p>
+                                <p class="literalDisplay">Hildakoak</p>
+                            </div>
+                        </div>
+                        <div id="linechart_material_mini2"></div>
+                        <div class="detalle">
+                            <p id="actualizadoFallecidos"></p>
+                            <a href="/eu\hildakoak.html">Gehiago</a>
+                        </div>
+                    </div>
+
+                    <div id="testsPcrContainer" class="dashboardContainer">
+                        <i class="fas fa-vial"></i>
+                        <div class="literal">
+                            <div class="display">
+                                <p id="tests"></p>
+                                <p class="literalDisplay">Egindako testak</p>
+                            </div>
+                            <!--<div id="actualizadoPcrTestCount"></div>-->
+
+                        </div>
+                        <div id="linechart_material_mini4"></div>
+
+                        <div class="detalle">
+                            <p id="actualizadoPcrTestCount"></p>
+                            <a href="/eu\testak.html">Gehiago</a>
+                        </div>
+                    </div>
+
+
+                    <div id="hospitalizadosUciContainer" class="dashboardLiteralContainer">
+                        <i class="fas fa-ambulance"></i>
+                        <div class="literal">
+                            <div class="display">
+                                <p id="hospitalizadosUci"></p>
+                                <p class="literalDisplay">ZIUn ingresatuta</p>
+                            </div>
+                            <!--<p id="actualizadoicuPeopleCount"></p>-->
+                        </div>
+                        <div id="linechart_material_mini5"></div>
+
+                        <div class="detalle">
+                            <p id="actualizadoicuPeopleCount"></p>
+                            <a href="/eu\ospitaleak.html">Gehiago</a>
+                        </div>
+                    </div>
+
+                    <div id="hospitalizacionesContainer" class="dashboardLiteralContainer">
+                        <i class="fas fa-hospital-user"></i>
+                        <div class="literal">
+                            <div class="display">
+                                <p id="hospitalizaciones"></p>
+                                <p class="literalDisplay">Plantan ingresatuta</p>
+                            </div>
+                        </div>
+                        <div id="linechart_material_mini6"></div>
+
+                        <div class="detalle">
+                            <p id="actualizadoHospitalizaciones"></p>
+                            <a href="/eu\ospitaleak.html">Gehiago</a>
+                        </div>
+                    </div>
+
+
+                    <div id="positivosArabaContainer" class="dashboardLiteralContainer">
+                        <i class="fas fa-user-plus"></i>
+                        <div class="literal">
+                            <div class="display">
+                                <p id="positivosAraba"></p>
+                                <p class="literalDisplay">Test+ Araban</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="positivosBizkaiaContainer" class="dashboardLiteralContainer">
+                        <i class="fas fa-user-plus"></i>
+                        <div class="literal">
+                            <div class="display">
+                                <p id="positivosBizkaia"></p>
+                                <p class="literalDisplay">Test+ Bizkaian</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="positivosGipuzkoaContainer" class="dashboardLiteralContainer">
+                        <i class="fas fa-user-plus"></i>
+                        <div class="literal">
+                            <div class="display">
+                                <p id="positivosGipuzkoa"></p>
+                                <p class="literalDisplay">Test+ Gipuzkoan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="intro_graph">Gune gorrian dauden udalerriak</h2>
+                <p class="intro_graph">Azken 14 egunetan Euskadiko udalerriek izan duten 100.000 biztanleko metatutako
+                    intzidentzia-tasa.</p>
+                <!--<ul class="intro_graph">
+                    <li><i class="fas fa-plus-square"></i><strong>5.000 biztanle baino gehiago</strong> dituzten
+                        udalerriak: azken 14 egunetan 100.000 biztanleko 500 kasu baino gehiago badaude, ostalaritza
+                        itxita egongo da.</li>
+                    <li><i class="fas fa-minus-square"></i><strong>5.000 biztanle baino gutxiago</strong> dituzten
+                        udalerriak: nahiz eta intzidentzia-tasa 500 kasutik gorakoa izan, <a
+                            href="https://www.euskadi.eus/ostalaritza-itxita-duten-udalerriak/web01-a2korona/eu/"
+                            title="Eusko Jaurlaritzaren Osasun saila: Ostalaritza itxita duten udalerriak">Eusko
+                            Jaurlaritzak erabakiko
+                            du ostalaritza-establezimenduek itxi behar duten ala ez</a>.</li>
+
+                </ul>-->
+                <div id="fechaActualizacionMapa" class="fechaActualizacion">Eusko Jaurlaritzak eguneratu duen azken datua:
+                </div>
+                <div id="map2"></div>
+
+            </main>
+        </div>
+    </div>
+    <footer class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow footer">
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/eu\webguneari-buruz.html">Webguneari buruz</a>
+            </li>
+        </ul>
+    </footer>
+    <!--jQuery para el menú responsive-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <!--Bootstrap para el menú responsive-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!--Google Charts para los gráficos-->
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="/dashboard-beta.e7d56d51.js"></script>
+</body>
+
+</html>

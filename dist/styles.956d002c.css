@@ -1,0 +1,307 @@
+nav#sidebarMenu ul.flex-column li.nav-item a {
+color: #343a40;
+text-transform: uppercase;
+font-size: 100%;
+
+}
+nav#sidebarMenu ul.flex-column li.nav-item a:hover {
+    color: #0056b3;
+}
+nav#sidebarMenu ul.flex-column li.nav-item i {
+color: #999;
+margin-right:0.5em;
+}
+div.btn-group a.btn-outline-secondary i {
+    margin-right:0.5em;
+}
+button.navbar-toggler {
+    float: right;
+    /*width: 12%;*/
+    text-align: center;
+    /*border: none;*/
+    margin-left: 85%;
+}
+.position-absolute {
+    position: absolute !important;
+}
+table.google-visualization-table-table {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+#table_div, #table_div2, #table_div3, #table_div4, #table_div5, #table_div6, #table_div7 {
+    margin-bottom: 2em;
+}
+#linechart_material2, #linechart_material3, #linechart_material, #linechart_material0, #linechart_material7, #columnchart_material, #columnchart_material2, #barchart_material6, #linechart_material8, #linechart_material1, #linechart_material9, #linechart_material11, #linechart_material9, #linechart_material10 { width:900px; height: 500px; margin-top:3em;}
+#linechart_material_mini1, #linechart_material_mini2, #linechart_material_mini3, #linechart_material_mini4, #linechart_material_mini5, #linechart_material_mini6, #linechart_material_mini7 {width: 297px; height: 197px; float: left;}
+#series_chart_div, #series_chart_div2, #series_chart_div3  {width: 900px; height: 800px;}
+#barchart_material {width: 900px; height: 1000px;margin-top:3em;}
+#map, #map2 {height:400px;width:100%;}
+#series_chart_div2 {
+    float: left;
+}
+
+
+@media only screen and (max-width: 600px) {
+    #linechart_material2 {
+    width:300px !important;
+    height: auto;
+    }
+}
+div.dashboard {
+    width: 100%;
+}
+div.dashboardContainer, div.dashboardLiteralContainer {
+    width: 308px;
+    border: 1px solid #dee2e6;
+    border-radius: 0.4em;
+    margin-right: 1%;
+    margin-left: 1%;
+    margin-bottom: 1em;
+    float:left;
+    height: auto;
+}
+
+@media only screen and (min-width: 1400px) {
+    div.dashboardContainer, div.dashboardLiteralContainer {
+        margin-right: 10%;
+        margin-left: 10%;
+    }
+}
+@media only screen and (min-width: 995px) and (max-width: 1285px) {
+    div.dashboardContainer, div.dashboardLiteralContainer {
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+}
+@media only screen and (min-width: 770px) and (max-width: 934px) {
+    div.dashboardContainer, div.dashboardLiteralContainer {
+        margin-right: 20%;
+        margin-left: 20%;
+    }
+}
+@media only screen and (max-width: 678px) {
+    div.dashboardContainer, div.dashboardLiteralContainer {
+        margin-right: 15%;
+        margin-left: 15%;
+    }
+}
+@media only screen and (max-width: 430px) {
+    div.dashboardContainer, div.dashboardLiteralContainer {
+        margin-right: 2%;
+        margin-left: 2%;
+    }
+}
+
+div.dashboardContainer i, div.dashboardLiteralContainer i {
+    width: 30%;
+    float: left;
+    text-align: center;
+    padding: 0.2em;
+    font-size: 3.5em;
+    color: #ffffff;
+    background-color: #6c757d;
+    /*background-color: #0056b3;*/
+    border-top-left-radius: 0.1em;
+    height:79px;
+}
+div.dashboardContainer .literal, div.dashboardLiteralContainer .literal {
+    width: 70%;
+    float:left;
+    padding-left: 0.5em;
+    border-bottom: 1px solid #dee2e6;
+    height:80px;
+    background-color: #6c757d;
+    /*background-color: #0056b3;*/
+    color:#ffffff;
+    border-top-right-radius: 0.4em;
+}
+div.dashboardLiteralContainer .literal {
+    border-bottom-right-radius: 0.4em;
+}
+div.dashboardLiteralContainer i {
+    border-bottom-left-radius: 0.1em;
+}
+div.dashboardContainer .literal div p:first-child, div.dashboardLiteralContainer .literal div p:first-child{
+    font-size: 150%;
+    font-weight: 600;
+}
+div.dashboard p.literalDisplay {
+    font-size: 120%;
+}
+div.dashboard div.fechaActualizacion, div.fechaActualizacionHospitales {
+    margin: 1.5em 2em 1.5em 1.3em;
+}
+div.fechaActualizacionHospitales {
+    margin-top: 1em;
+}
+div.fechaActualizacionContent {
+    margin: 1.5em 2em 1.5em 0em;
+}
+div.dashboard div.fechaActualizacion, div.fechaActualizacion, div.fechaActualizacionHospitales, div.fechaActualizacionContent {
+    font-size:90%;
+    color: #495057;
+}
+div.dashboardContainer .literal div p, div.dashboardLiteralContainer .literal div p {
+    margin-bottom: 0rem;
+}
+div.dashboard #linechart_material3, div.dashboard #linechart_material, div.dashboard #linechart_material2 {
+    float:left;
+    margin-top:1em;
+}
+div.dashboard div.detalle {
+    float:left;
+    width: 100%;
+    border-top: 1px solid #dee2e6;
+    background-color: #6c757d;
+    /*background-color: #0056b3;*/
+    color:#ffffff;
+    margin-top:1em;
+    border-bottom-right-radius: 0.4em;
+    border-bottom-left-radius: 0.4em;
+    padding-bottom:0.2em;
+
+}
+#actualizadoFallecidos, #actualizadoR0, #actualizadoPositivos, #actualizadoPositivosRate, #actualizadoPcrTestCount, #actualizadoicuPeopleCount, #actualizadoHospitalizaciones {
+    width: 60%;
+    float: left;
+    padding-left: 0.5em;
+    margin-bottom: 0;
+    font-size:90%;
+}
+#actualizadoserologyTestCount, #actualizadopcrUniquePersonCount, #actualizadonewHospitalAdmissionsWithPCRCount {
+    width: 95%;
+    float: left;
+    padding-left: 0em;
+    margin-bottom: 0;
+    font-size:90%;
+}
+div.dashboard div.detalle a {
+    float:right;
+    width: 40%;
+    float: left;
+    color:#ffffff;
+    font-size:90%;
+    text-align: right;
+    padding-right:0.5em;
+    font-weight: 600;
+}
+footer {
+    height: 3em;
+    
+}
+div.row{
+min-height:42em;
+}
+main {
+    margin-bottom:2em;
+}
+ul.languages {
+    width:100px;
+    flex-direction: row;
+}
+ul.languages li .nav-link {
+    padding-left: 1em;
+}
+ul.languages li a.nav-link {
+    color: #fff !important;
+
+}
+ul.languages li .nav-link:hover {
+    text-decoration: underline;
+    
+}
+ul.languages li span.nav-no-link {
+    color: rgba(255,255,255,.5);
+    display: block;
+    padding: .5rem 1rem;
+}
+
+ul.languages li .nav-link a:hover{
+    text-decoration: underline !important;
+}
+ul.languages li {
+    width:50%;
+    float:left;
+}
+@media only screen and (max-width: 760px) {
+nav.navbar ul.px-3{
+    padding-left:0 !important;
+}
+}
+nav.navbar button.navbar-toggler {
+    margin-top: 0.2em;
+}
+#sidebarMenu {
+    padding-right: 0;
+    padding-left: 0;
+}
+#sidebarMenu ul.nav li.nav-item {
+    padding-left: 15px;
+}
+#sidebarMenu ul.nav li.nav-item a.active{
+    background-color: #ffffff;
+    border-bottom-left-radius: 0.4em;
+    border-top-left-radius: 0.4em;
+    color: #6c757d;
+    font-weight: 600;
+    border-left: 6px solid #6c757d;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+}
+#sidebarMenu ul.nav li.nav-item a.active i{
+    color: #6c757d;
+    font-weight: 600;
+}
+#sidebarMenu ul.nav li.nav-item a.active i.fa-angle-double-right{
+    float:right;
+    padding-top: 4px;
+}
+.legend, .legend2 {
+    line-height: 18px;
+    color: #555;
+}
+.legend i, .legend2 i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+.info, .info2 {
+    padding: 6px 8px;
+    /*font: 14px/16px Arial, Helvetica, sans-serif;*/
+    /*line-height: 16px;*/
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4, .info2 h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+.info_p {
+    margin-bottom:0.5em;
+}
+h2.intro_graph {
+margin-top: 1.5em;
+width:100%;
+float:left;
+}
+p.intro_graph, ul.intro_graph {
+    margin-top: 0.5em;
+    width:100%;
+    float:left;
+    }
+    ul.intro_graph li {
+        list-style-type: none;
+    }
+    ul.intro_graph li .fa-plus-square, ul.intro_graph li .fa-minus-square {
+        margin-right: 0.5em;
+    }
+#fechaActualizacionMapa {
+    float:left;
+    width:100%;
+}
+
+
+/*# sourceMappingURL=/styles.956d002c.css.map */
